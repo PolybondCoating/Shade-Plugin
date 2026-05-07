@@ -124,20 +124,13 @@ body {
   height: 64px;                 /* ← Icon height */
 }
 
-.nav-wordmark {                 /* ← "POLYBOND" text next to the icon */
-  font-size: 16px;              /* ← Size of the logo text */
-  color: var(--charcoal);       /* ← "POLY" part colour */
-}
-
-.nav-wordmark span {            /* ← "BOND" part of the logo — highlighted in orange */
-  color: var(--orange);         /* ← Change this to recolour just "BOND" */
-}
 
 /* Navigation links (middle of nav) */
 .nav-links {
   display: flex;
   gap: 32px;                    /* ← Space between nav menu items */
   align-items: center;
+font-family: 'Bank Gothic';
 }
 
 .nav-links a {
@@ -171,7 +164,7 @@ body {
 }
 
 .nav-cta:hover {
-  opacity: 0.85; colour: #000000;               /* ← Button fades slightly when hovered */
+   colour: #000000;               /* ← Button fades slightly when hovered */
 }
 
 
