@@ -98,11 +98,11 @@ footer{background:#3B3B3B;color:#fff;padding:48px 60px 32px}
 <div class="accent-bar" id="accentBar"></div>
 
 <nav>
-  <a href="index.html" class="nav-logo">
+  <a class="nav-logo" href="#" onclick="showPage('home')" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
     <img src="logo-icon.png" height="34" alt="Polybond"
       onerror="this.style.display='none';document.getElementById('logoFb').style.display='block'"/>
-    <div class="nav-wordmark" id="logoFb" style="display:none">POLY<span>BOND</span></div>
-  </a>
+ <span id="logoFb" style="display:none;">POLY<span style="color:var(--accent)">BOND</span></span>
+</a>
   <div class="nav-links">
     <a href="#">Home</a>
     <a href="#">Colours</a>
