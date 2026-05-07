@@ -120,8 +120,8 @@ body {
 }
 
 .nav-monogram {                 /* ← The orange flame/lens icon */
-  width: 32px;                  /* ← Icon width. Change both width and height equally */
-  height: 32px;                 /* ← Icon height */
+  width: 64px;                  /* ← Icon width. Change both width and height equally */
+  height: 64px;                 /* ← Icon height */
 }
 
 .nav-wordmark {                 /* ← "POLYBOND" text next to the icon */
@@ -171,7 +171,7 @@ body {
 }
 
 .nav-cta:hover {
-  opacity: 0.85;                /* ← Button fades slightly when hovered */
+  opacity: 0.85; colour: #000000;               /* ← Button fades slightly when hovered */
 }
 
 
