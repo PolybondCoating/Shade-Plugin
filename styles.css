@@ -45,19 +45,25 @@
 }
 
 
-/* ── CSS VARIABLES ────────────────────────────────────────────────────────
-   Change a colour here once and it updates everywhere on the site.    */
 :root {
-  --orange:      #F7941D;  /* ← PRIMARY ACCENT: Pantone 137C. Change this to restyle all buttons, active states, logo */
-  --charcoal:    #3B3B3B;  /* ← PRIMARY TEXT: Dark body text, nav links, headings */
-  --black:       #000000;  /* ← Pure black — used sparingly for emphasis */
-  --white:       #FFFFFF;  /* ← Page background and card backgrounds */
-  --grey-light:  #F5F5F5;  /* ← Light grey used for alternating section backgrounds */
-  --grey-border: #EFEFEF;  /* ← Dividers and card border colour */
-  --grey-text:   #888888;  /* ← Muted text — captions, labels, secondary info */
-  --grey-hint:   #BBBBBB;  /* ← Very faint text — placeholder text */
+  --bg: #111111;         /* ← Main background — was deep navy */
+  --bg2: #1A1A1A;        /* ← Secondary background */
+  --bg3: #222222;        /* ← Modal background */
+  --surface: #242424;    /* ← Card surface */
+  --surface2: #2E2E2E;   /* ← Elevated surface */
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --fg: #F5F5F5;         /* ← Primary text */
+  --fg2: rgba(245,245,245,0.55);
+  --fg3: rgba(245,245,245,0.28);
+  --accent: #F7941D;     /* ← Pantone 137C — ALL orange highlights */
+  --accent2: #F7941D;    /* ← Was teal, now same orange */
+  --mono: 'Glacial Indifference', sans-serif;   /* ← Replaces DM Mono */
+  --sans: 'Glacial Indifference', sans-serif;   /* ← Replaces DM Sans */
+  --display: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif; /* ← Replaces Bebas Neue */
+  --radius: 2px;
+  --transition: 220ms cubic-bezier(0.4,0,0.2,1);
 }
-
 
 /* ── BASE BODY ────────────────────────────────────────────────────────────  */
 html {
