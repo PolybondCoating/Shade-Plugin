@@ -282,19 +282,24 @@ body{
 
 <script src="pp_colours.js"></script>
 
+```html
 <script>
 
-const colours = window.ppColours || [];
+const colours = [...ppColours, ...epColours];
 
 const mosaic = document.getElementById('mosaic');
 
-colours.forEach(colour => {
+colours.forEach((colour,index) => {
 
   const swatch = document.createElement('div');
 
   swatch.classList.add('swatch');
 
-  swatch.style.background = colour.hex;
+  swatch.style.backgroundColor = colour.hex || colour.color || '#cccccc';
+
+  if(index % 7 === 0){
+    swatch.style.gridRow = "span 2";
+  }
 
   swatch.onclick = () => openModal(colour);
 
@@ -306,13 +311,17 @@ function openModal(colour){
 
   document.getElementById('modal').classList.add('active');
 
-  document.getElementById('modalSwatch').style.background = colour.hex;
+  document.getElementById('modalSwatch').style.background =
+    colour.hex || colour.color || '#cccccc';
 
-  document.getElementById('modalCode').innerText = colour.code || '';
+  document.getElementById('modalCode').innerText =
+    colour.code || 'POLYBOND';
 
-  document.getElementById('modalName').innerText = colour.name || '';
+  document.getElementById('modalName').innerText =
+    colour.name || 'Shade';
 
-  document.getElementById('modalFinish').innerText = colour.finish || '';
+  document.getElementById('modalFinish').innerText =
+    colour.finish || 'Architectural Powder Coating';
 
 }
 
@@ -322,8 +331,15 @@ function closeModal(){
 
 }
 
+document.getElementById('modal').addEventListener('click', function(e){
+
+  if(e.target.id === 'modal'){
+    closeModal();
+  }
+
+});
+
 </script>
 
 </body>
 </html>
-```
