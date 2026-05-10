@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Polybond Coating — Specify with confidence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0F0F1A;
+    --bg2: #14141F;
+    --bg3: #1C1C2E;
+    --surface: #1E1E30;
+    --surface2: #252538;
+    --border: rgba(242,240,235,0.08);
+    --border2: rgba(242,240,235,0.14);
+    --fg: #F2F0EB;
+    --fg2: rgba(242,240,235,0.55);
+    --fg3: rgba(242,240,235,0.28);
+    --accent: oklch(0.72 0.14 62);
+    --accent2: oklch(0.65 0.12 200);
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Bebas Neue', sans-serif;
+    --radius: 3px;
+    --transition: 220ms cubic-bezier(0.4,0,0.2,1);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 56px;
+    display: flex; align-items: center;
+    padding: 0 32px;
+    background: rgba(15,15,26,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    gap: 0;
+  }
+  .nav-logo {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 0.08em;
+    color: var(--fg);
+    margin-right: 40px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex; gap: 0; flex: 1; align-items: center;
+  }
+  .nav-link {
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--fg2);
+    cursor: pointer;
+    border-radius: var(--radius);
+    transition: color var(--transition), background var(--transition);
+    border: none; background: none; font-family: var(--sans);
+  }
+  .nav-link:hover, .nav-link.active { color: var(--fg); }
+  .nav-link.active { color: var(--accent); }
+  .nav-cta {
+    margin-left: auto;
+    padding: 8px 20px;
+    background: var(--accent);
+    color: #0F0F1A;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: none; border-radius: var(--radius);
+    cursor: pointer; font-family: var(--sans);
+    transition: opacity var(--transition);
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* PAGE SYSTEM */
+  .page { display: none; padding-top: 56px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ============ HOME ============ */
+  .hero {
+    min-height: calc(100vh - 56px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 64px 80px 64px;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+    color: var(--accent); margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+  .hero-tag::before {
+    content: ''; width: 24px; height: 1px; background: var(--accent);
+  }
+  .hero-h1 {
+    font-family: var(--display);
+    font-size: clamp(60px, 6vw, 96px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--fg);
+    margin-bottom: 28px;
+  }
+  .hero-h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 17px; font-weight: 300;
+    color: var(--fg2); max-width: 420px;
+    margin-bottom: 48px; line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px;
+    background: var(--accent);
+    color: #0F0F1A; font-weight: 600; font-size: 14px;
+    border: none; border-radius: var(--radius); cursor: pointer;
+    font-family: var(--sans); letter-spacing: 0.03em;
+    transition: opacity var(--transition), transform var(--transition);
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 24px;
+    background: transparent;
+    color: var(--fg); font-weight: 500; font-size: 14px;
+    border: 1px solid var(--border2); border-radius: var(--radius); cursor: pointer;
+    font-family: var(--sans); letter-spacing: 0.03em;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .btn-ghost:hover { border-color: var(--fg2); background: var(--surface); }
+  .hero-proof {
+    margin-top: 64px; display: flex; gap: 40px;
+  }
+  .proof-item { display: flex; flex-direction: column; gap: 4px; }
+  .proof-num {
+    font-family: var(--display); font-size: 36px; letter-spacing: 0.04em;
+    color: var(--fg); line-height: 1;
+  }
+  .proof-label {
+    font-family: var(--mono); font-size: 11px; color: var(--fg3);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* Hero right — colour mosaic */
+  .hero-right {
+    position: relative; overflow: hidden;
+  }
+  .colour-mosaic {
+    position: absolute; inset: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+  }
+  .mosaic-cell {
+    transition: opacity 0.4s ease;
+    cursor: pointer;
+  }
+  .mosaic-cell:hover { opacity: 0.7; }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--bg) 0%, transparent 40%);
+    pointer-events: none; z-index: 1;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute; bottom: 32px; left: 64px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 11px; color: var(--fg3);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 40px; height: 1px; background: var(--fg3);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: ''; position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%; background: var(--accent);
+    animation: scrollAnim 2s ease-in-out infinite;
+  }
+  @keyframes scrollAnim {
+    0% { left: -100%; } 100% { left: 100%; }
+  }
+
+  /* Home feature strip */
+  .feature-strip {
+    padding: 80px 64px;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+  .feature-card {
+    background: var(--bg);
+    padding: 48px 40px;
+    display: flex; flex-direction: column; gap: 16px;
+    cursor: pointer; transition: background var(--transition);
+  }
+  .feature-card:hover { background: var(--surface); }
+  .feature-icon {
+    width: 40px; height: 40px;
+    border: 1px solid var(--border2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .feature-num {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .feature-title {
+    font-size: 20px; font-weight: 500; color: var(--fg); line-height: 1.3;
+  }
+  .feature-desc { font-size: 14px; color: var(--fg2); line-height: 1.7; }
+  .feature-link {
+    margin-top: auto;
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .feature-link::after { content: '→'; }
+
+  /* ============ COLOUR LIBRARY ============ */
+  .page-header {
+    padding: 60px 64px 40px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-eyebrow {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .page-title {
+    font-family: var(--display); font-size: clamp(40px,5vw,72px);
+    line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 16px;
+  }
+  .page-subtitle { font-size: 16px; color: var(--fg2); max-width: 540px; font-weight: 300; }
+
+  /* Filter bar */
+  .filter-bar {
+    padding: 20px 64px;
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 56px; z-index: 50;
+    background: rgba(15,15,26,0.95); backdrop-filter: blur(8px);
+  }
+  .filter-label {
+    font-family: var(--mono); font-size: 11px; color: var(--fg3);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-right: 8px;
+  }
+  .filter-chip {
+    padding: 6px 14px; border: 1px solid var(--border2);
+    border-radius: 100px;
+    font-size: 12px; font-weight: 500; color: var(--fg2);
+    background: transparent; cursor: pointer; font-family: var(--sans);
+    transition: all var(--transition);
+  }
+  .filter-chip:hover { border-color: var(--fg2); color: var(--fg); }
+  .filter-chip.active {
+    background: var(--accent); border-color: var(--accent);
+    color: #0F0F1A; font-weight: 600;
+  }
+  .filter-sep { width: 1px; height: 24px; background: var(--border2); margin: 0 4px; }
+  .filter-search {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 6px 14px;
+  }
+  .filter-search input {
+    background: none; border: none; outline: none;
+    color: var(--fg); font-family: var(--mono); font-size: 12px;
+    width: 160px;
+  }
+  .filter-search input::placeholder { color: var(--fg3); }
+
+  /* Colour grid */
+  .colour-grid {
+    padding: 40px 64px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2px;
+    background: var(--border);
+  }
+  .colour-card {
+    background: var(--bg);
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+    display: flex; flex-direction: column;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .colour-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    z-index: 2; position: relative;
+  }
+  .colour-swatch {
+    height: 140px; width: 100%; flex-shrink: 0;
+    position: relative;
+  }
+  .swatch-finish-badge {
+    position: absolute; bottom: 8px; right: 8px;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 3px 7px;
+    background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+    color: rgba(255,255,255,0.8); border-radius: 2px;
+  }
+  .colour-info {
+    padding: 14px 16px;
+    background: var(--bg2);
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .colour-code {
+    font-family: var(--mono); font-size: 11px; color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+  .colour-name { font-size: 13px; font-weight: 500; color: var(--fg); }
+  .colour-meta {
+    display: flex; gap: 12px; margin-top: 4px;
+  }
+  .colour-meta span {
+    font-family: var(--mono); font-size: 10px; color: var(--fg3);
+  }
+
+  /* ============ INDIVIDUAL COLOUR PAGE ============ */
+  .colour-detail {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    min-height: calc(100vh - 56px);
+  }
+  .colour-detail-left {
+    position: sticky; top: 56px; height: calc(100vh - 56px);
+    display: flex; flex-direction: column;
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .colour-big-swatch {
+    flex: 1; min-height: 280px;
+  }
+  .colour-detail-meta {
+    padding: 28px 32px;
+    border-top: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .detail-code {
+    font-family: var(--mono); font-size: 12px; color: var(--accent);
+    letter-spacing: 0.08em; margin-bottom: 4px;
+  }
+  .detail-name {
+    font-size: 24px; font-weight: 500; margin-bottom: 20px;
+  }
+  .spec-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; margin-bottom: 20px;
+  }
+  .spec-cell {
+    background: var(--surface); padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .spec-label {
+    font-family: var(--mono); font-size: 9px; color: var(--fg3);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .spec-val {
+    font-family: var(--mono); font-size: 13px; color: var(--fg);
+    font-weight: 400;
+  }
+  .detail-actions { display: flex; flex-direction: column; gap: 8px; }
+  .btn-full {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 13px 20px; border-radius: var(--radius);
+    font-family: var(--sans); font-size: 13px; font-weight: 600;
+    cursor: pointer; border: none; transition: all var(--transition);
+    letter-spacing: 0.03em;
+  }
+  .btn-full.accent { background: var(--accent); color: #0F0F1A; }
+  .btn-full.accent:hover { opacity: 0.88; }
+  .btn-full.ghost {
+    background: transparent; color: var(--fg);
+    border: 1px solid var(--border2);
+  }
+  .btn-full.ghost:hover { background: var(--surface); }
+
+  .colour-detail-right { padding: 0; }
+  .visualiser-panel {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    height: 420px;
+    display: flex; flex-direction: column;
+  }
+  .panel-header {
+    padding: 20px 32px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-title {
+    font-family: var(--mono); font-size: 11px; color: var(--fg2);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .lighting-tabs {
+    display: flex; gap: 2px;
+    background: var(--surface); border-radius: var(--radius); padding: 3px;
+  }
+  .light-tab {
+    padding: 5px 12px; border-radius: 2px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    color: var(--fg3); cursor: pointer; border: none; background: none;
+    font-family: var(--sans); transition: all var(--transition);
+  }
+  .light-tab.active {
+    background: var(--surface2); color: var(--fg);
+  }
+
+  .visualiser-canvas {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+
+  /* 3D Profile SVG */
+  .profile-container {
+    position: relative; width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Colour detail right — spec section */
+  .detail-section {
+    padding: 32px; border-bottom: 1px solid var(--border);
+  }
+  .section-title {
+    font-family: var(--mono); font-size: 11px; color: var(--fg3);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .lrv-bar-wrap {
+    margin-top: 8px;
+  }
+  .lrv-track {
+    height: 8px; border-radius: 4px;
+    background: linear-gradient(90deg, #000 0%, #fff 100%);
+    position: relative; margin: 8px 0;
+  }
+  .lrv-marker {
+    position: absolute; top: -4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .lrv-labels {
+    display: flex; justify-content: space-between;
+    font-family: var(--mono); font-size: 10px; color: var(--fg3);
+  }
+  .similar-colours {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .similar-swatch {
+    width: 48px; height: 48px; border-radius: var(--radius);
+    cursor: pointer; transition: transform var(--transition);
+    border: 1px solid var(--border);
+  }
+  .similar-swatch:hover { transform: scale(1.1); }
+
+  /* ============ VISUALISER PAGE ============ */
+  .visualiser-page {
+    height: calc(100vh - 56px);
+    display: grid;
+    grid-template-columns: 320px 1fr;
+  }
+  .vis-sidebar {
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .vis-sidebar-header {
+    padding: 24px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .vis-sidebar-title {
+    font-family: var(--display); font-size: 28px; letter-spacing: 0.04em;
+  }
+  .vis-sidebar-sub {
+    font-size: 12px; color: var(--fg2); margin-top: 4px;
+  }
+  .vis-section { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+  .vis-section-label {
+    font-family: var(--mono); font-size: 10px; color: var(--fg3);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .model-selector {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  }
+  .model-btn {
+    padding: 12px 10px; border: 1px solid var(--border2);
+    border-radius: var(--radius); cursor: pointer;
+    background: none; color: var(--fg2); font-family: var(--sans);
+    font-size: 12px; text-align: center;
+    transition: all var(--transition); display: flex;
+    flex-direction: column; align-items: center; gap: 8px;
+  }
+  .model-btn:hover { border-color: var(--fg2); color: var(--fg); }
+  .model-btn.active {
+    border-color: var(--accent); color: var(--accent);
+    background: rgba(235,180,90,0.06);
+  }
+  .model-icon { font-size: 22px; }
+  .light-selector { display: flex; gap: 8px; }
+  .light-btn {
+    flex: 1; padding: 9px 8px;
+    border: 1px solid var(--border2); border-radius: var(--radius);
+    background: none; cursor: pointer; font-family: var(--mono);
+    font-size: 10px; letter-spacing: 0.06em; color: var(--fg3);
+    transition: all var(--transition); display: flex;
+    flex-direction: column; align-items: center; gap: 5px;
+  }
+  .light-btn:hover { border-color: var(--fg2); color: var(--fg); }
+  .light-btn.active { border-color: var(--accent2); color: var(--accent2); }
+  .light-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .vis-colour-scroll {
+    flex: 1; overflow-y: auto; padding: 16px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+    align-content: start;
+  }
+  .vis-colour-scroll::-webkit-scrollbar { width: 4px; }
+  .vis-colour-scroll::-webkit-scrollbar-track { background: transparent; }
+  .vis-colour-scroll::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+  .vis-swatch-btn {
+    aspect-ratio: 1; border-radius: 2px; cursor: pointer;
+    border: 2px solid transparent; transition: all var(--transition);
+  }
+  .vis-swatch-btn:hover { transform: scale(1.08); }
+  .vis-swatch-btn.active { border-color: var(--fg); }
+  .vis-cta {
+    padding: 20px 24px; border-top: 1px solid var(--border);
+  }
+
+  /* 3D Canvas area */
+  .vis-canvas {
+    background: var(--bg2); position: relative; overflow: hidden;
+  }
+  .vis-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.5;
+  }
+  .vis-model-area {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .vis-info-overlay {
+    position: absolute; bottom: 24px; left: 24px;
+    background: rgba(15,15,26,0.8); backdrop-filter: blur(8px);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius); padding: 14px 18px;
+    display: flex; gap: 24px;
+  }
+  .vis-info-item { display: flex; flex-direction: column; gap: 3px; }
+  .vis-info-label { font-family: var(--mono); font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; }
+  .vis-info-val { font-family: var(--mono); font-size: 13px; color: var(--fg); }
+  .vis-share-bar {
+    position: absolute; top: 24px; right: 24px;
+    display: flex; gap: 8px;
+  }
+  .vis-btn {
+    padding: 8px 16px; border: 1px solid var(--border2); border-radius: var(--radius);
+    background: rgba(15,15,26,0.8); backdrop-filter: blur(8px);
+    color: var(--fg); font-family: var(--mono); font-size: 11px;
+    cursor: pointer; transition: all var(--transition);
+  }
+  .vis-btn:hover { border-color: var(--fg2); background: var(--surface); }
+
+  /* ============ FOR ARCHITECTS ============ */
+  .arch-hero {
+    padding: 80px 64px 60px;
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end;
+  }
+  .arch-downloads {
+    padding: 60px 64px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: var(--border);
+  }
+  .download-card {
+    background: var(--bg); padding: 40px 36px;
+    display: flex; flex-direction: column; gap: 16px;
+    transition: background var(--transition); cursor: pointer;
+  }
+  .download-card:hover { background: var(--surface); }
+  .download-format {
+    display: inline-flex; align-items: center;
+    font-family: var(--mono); font-size: 10px; color: var(--accent);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 10px; border: 1px solid rgba(235,180,90,0.3);
+    border-radius: 2px; align-self: flex-start;
+  }
+  .download-title { font-size: 18px; font-weight: 500; color: var(--fg); }
+  .download-desc { font-size: 13px; color: var(--fg2); line-height: 1.7; flex: 1; }
+  .download-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border: 1px solid var(--border2); border-radius: var(--radius);
+    background: none; color: var(--fg); font-family: var(--sans);
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all var(--transition); align-self: flex-start;
+    margin-top: 8px;
+  }
+  .download-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .lrv-section {
+    padding: 60px 64px; border-top: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .spec-steps {
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+  }
+  .spec-step {
+    padding: 20px 24px; border-bottom: 1px solid var(--border);
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+  .spec-step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: var(--mono); font-size: 20px; color: var(--accent);
+    line-height: 1; min-width: 28px;
+  }
+  .step-content {}
+  .step-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .step-desc { font-size: 13px; color: var(--fg2); line-height: 1.6; }
+
+  /* Back button */
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 0; font-family: var(--mono); font-size: 11px;
+    color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; border: none; background: none; font-family: var(--sans);
+    transition: color var(--transition);
+    margin: 24px 64px 0;
+  }
+  .back-btn:hover { color: var(--fg); }
+  .back-btn::before { content: '←'; }
+
+  /* SAMPLE REQUEST modal */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity var(--transition);
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 6px; padding: 40px; width: 480px; max-width: 90vw;
+    transform: translateY(16px); transition: transform var(--transition);
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-title { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--fg2); margin-bottom: 28px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; }
+  .form-input {
+    padding: 11px 14px; background: var(--surface); border: 1px solid var(--border2);
+    border-radius: var(--radius); color: var(--fg); font-family: var(--sans); font-size: 14px;
+    outline: none; transition: border-color var(--transition);
+  }
+  .form-input:focus { border-color: var(--accent); }
+  .modal-actions { display: flex; gap: 10px; margin-top: 24px; }
+  .modal-close {
+    position: absolute; top: 16px; right: 20px;
+    background: none; border: none; color: var(--fg3); font-size: 20px;
+    cursor: pointer; line-height: 1;
+  }
+  .modal { position: relative; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 260px; }
+    .hero-left { padding: 48px 32px; }
+    .colour-detail { grid-template-columns: 1fr; }
+    .visualiser-page { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+    .feature-strip { grid-template-columns: 1fr; }
+    .arch-hero, .lrv-section { grid-template-columns: 1fr; gap: 40px; }
+    .arch-downloads { grid-template-columns: 1fr; }
+    .filter-bar, .page-header, .colour-grid, .arch-hero, .arch-downloads, .lrv-section { padding-left: 24px; padding-right: 24px; }
+    .back-btn { margin-left: 24px; }
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.5s ease both; }
+  .fade-up-1 { animation-delay: 0.1s; }
+  .fade-up-2 { animation-delay: 0.22s; }
+  .fade-up-3 { animation-delay: 0.34s; }
+  .fade-up-4 { animation-delay: 0.46s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">POLY<span>·</span>BOND</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('home')">Home</button>
+    <button class="nav-link" onclick="showPage('colours')">Colours</button>
+    <button class="nav-link" onclick="showPage('visualiser')">3D Visualiser</button>
+    <button class="nav-link" onclick="showPage('products')">Products</button>
+    <button class="nav-link" onclick="showPage('architects')">For Architects</button>
+  </div>
+  <button class="nav-cta" onclick="openModal()">Request Sample</button>
+</nav>
+
+<!-- ================== HOME ================== -->
+<div class="page active" id="page-home" data-screen-label="01 Home">
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag fade-up fade-up-1">Powder Coat Manufacturer — Est. 2006</div>
+      <h1 class="hero-h1 fade-up fade-up-2">Specify with<br/><em>confidence.</em></h1>
+      <p class="hero-sub fade-up fade-up-3">The complete specification tool for architects and facade engineers. 300+ colours, full LAB data, 3D visualiser, and BIM-ready assets — all in one place.</p>
+      <div class="hero-actions fade-up fade-up-4">
+        <button class="btn-primary" onclick="showPage('colours')">
+          Browse Colour Library
+          <span>→</span>
+        </button>
+        <button class="btn-ghost" onclick="showPage('visualiser')">
+          Open 3D Visualiser
+        </button>
+      </div>
+      <div class="hero-proof fade-up fade-up-4">
+        <div class="proof-item">
+          <span class="proof-num">300+</span>
+          <span class="proof-label">Colours</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-num">19</span>
+          <span class="proof-label">Years active</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-num">4</span>
+          <span class="proof-label">Finish types</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right" id="hero-mosaic">
+      <div class="colour-mosaic" id="mosaicGrid"></div>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Explore colours
+    </div>
+  </section>
+
+  <section class="feature-strip">
+    <div class="feature-card" onclick="showPage('colours')">
+      <div class="feature-num">01</div>
+      <div class="feature-title">Full Colour Library</div>
+      <p class="feature-desc">300+ powder coat colours with complete LAB, sRGB, HEX, LRV, and gloss specifications. Filter by finish, RAL code, or collection.</p>
+      <span class="feature-link">Browse colours</span>
+    </div>
+    <div class="feature-card" onclick="showPage('visualiser')">
+      <div class="feature-num">02</div>
+      <div class="feature-title">3D Visualiser</div>
+      <p class="feature-desc">Apply any Polybond colour to aluminium profiles, louvres, and lighting fixtures in real time. Switch lighting scenes. Share or download.</p>
+      <span class="feature-link">Open visualiser</span>
+    </div>
+    <div class="feature-card" onclick="showPage('architects')">
+      <div class="feature-num">03</div>
+      <div class="feature-title">For Architects</div>
+      <p class="feature-desc">Revit material libraries, Adobe swatch files, LRV documentation, and specification notes — everything you need to include Polybond in your drawings.</p>
+      <span class="feature-link">Download assets</span>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================== COLOUR LIBRARY ================== -->
+<div class="page" id="page-colours" data-screen-label="02 Colour Library">
+
+  <div class="page-header">
+    <div class="page-eyebrow">Colour Library</div>
+    <h1 class="page-title">300+ Specifications</h1>
+    <p class="page-subtitle">Every colour with full LAB, LRV, and gloss data. Download TDS or request a physical sample.</p>
+  </div>
+
+  <div class="filter-bar" id="filterBar">
+    <span class="filter-label">Finish</span>
+    <button class="filter-chip active" onclick="setFilter(this,'finish','all')">All</button>
+    <button class="filter-chip" onclick="setFilter(this,'finish','Satin Matt')">Satin Matt</button>
+    <button class="filter-chip" onclick="setFilter(this,'finish','Gloss')">Gloss</button>
+    <button class="filter-chip" onclick="setFilter(this,'finish','Texture')">Texture</button>
+    <button class="filter-chip" onclick="setFilter(this,'finish','Metallic')">Metallic</button>
+    <div class="filter-sep"></div>
+    <span class="filter-label">LRV</span>
+    <button class="filter-chip" onclick="setFilter(this,'lrv','dark')">Dark &lt;20</button>
+    <button class="filter-chip" onclick="setFilter(this,'lrv','mid')">Mid 20–60</button>
+    <button class="filter-chip" onclick="setFilter(this,'lrv','light')">Light &gt;60</button>
+    <div class="filter-search">
+      <span style="color:var(--fg3);font-size:13px;">⌕</span>
+      <input type="text" placeholder="RAL / code / name…" oninput="searchColours(this.value)" id="colourSearch" />
+    </div>
+  </div>
+
+  <div class="colour-grid" id="colourGrid"></div>
+
+</div>
+
+<!-- ================== INDIVIDUAL COLOUR ================== -->
+<div class="page" id="page-colour-detail" data-screen-label="03 Colour Detail">
+  <button class="back-btn" onclick="showPage('colours')">Back to Library</button>
+  <div class="colour-detail">
+    <div class="colour-detail-left">
+      <div class="colour-big-swatch" id="detailSwatch"></div>
+      <div class="colour-detail-meta">
+        <div class="detail-code" id="detailCode">PC-4072</div>
+        <div class="detail-name" id="detailName">Graphite Slate</div>
+        <div class="spec-grid" id="specGrid"></div>
+        <div class="detail-actions">
+          <button class="btn-full accent" onclick="openModal()">Request Sample</button>
+          <button class="btn-full ghost">↓ Download TDS</button>
+          <button class="btn-full ghost">↓ Colour Data Sheet</button>
+        </div>
+      </div>
+    </div>
+    <div class="colour-detail-right">
+      <div class="visualiser-panel">
+        <div class="panel-header">
+          <span class="panel-title">3D Visualiser</span>
+          <div class="lighting-tabs">
+            <button class="light-tab active" onclick="setLighting(this,'daylight')">Daylight</button>
+            <button class="light-tab" onclick="setLighting(this,'warm')">Warm Interior</button>
+            <button class="light-tab" onclick="setLighting(this,'overcast')">Overcast</button>
+          </div>
+        </div>
+        <div class="visualiser-canvas">
+          <div class="vis-bg-grid" style="opacity:0.3"></div>
+          <div class="profile-container" id="profileContainer"></div>
+        </div>
+      </div>
+      <div class="detail-section">
+        <div class="section-title">Light Reflectance Value</div>
+        <div class="lrv-bar-wrap">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span style="font-family:var(--mono);font-size:11px;color:var(--fg2)">LRV</span>
+            <span style="font-family:var(--mono);font-size:18px;color:var(--fg)" id="lrvValue">14</span>
+          </div>
+          <div class="lrv-track">
+            <div class="lrv-marker" id="lrvMarker" style="left:14%"></div>
+          </div>
+          <div class="lrv-labels"><span>0 (Absolute black)</span><span>100 (Pure white)</span></div>
+        </div>
+        <p style="font-size:12px;color:var(--fg3);margin-top:12px;font-family:var(--mono);">
+          LRV &lt;20: Absorbed heat may affect adhesion on exterior applications. Specify in TDS.
+        </p>
+      </div>
+      <div class="detail-section">
+        <div class="section-title">Similar Colours</div>
+        <div class="similar-colours" id="similarColours"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================== 3D VISUALISER ================== -->
+<div class="page" id="page-visualiser" data-screen-label="04 3D Visualiser">
+  <div class="visualiser-page">
+    <div class="vis-sidebar">
+      <div class="vis-sidebar-header">
+        <div class="vis-sidebar-title">Visualiser</div>
+        <div class="vis-sidebar-sub">Apply any Polybond colour to a product model</div>
+      </div>
+      <div class="vis-section">
+        <div class="vis-section-label">Product Model</div>
+        <div class="model-selector">
+          <button class="model-btn active" onclick="setModel(this,'extrusion')">
+            <span class="model-icon">⬛</span>
+            Extrusion Profile
+          </button>
+          <button class="model-btn" onclick="setModel(this,'louvre')">
+            <span class="model-icon">≡</span>
+            Louvre Blade
+          </button>
+          <button class="model-btn" onclick="setModel(this,'fixture')">
+            <span class="model-icon">◎</span>
+            Lighting Fixture
+          </button>
+          <button class="model-btn" onclick="setModel(this,'cladding')">
+            <span class="model-icon">▦</span>
+            Cladding Panel
+          </button>
+        </div>
+      </div>
+      <div class="vis-section">
+        <div class="vis-section-label">Lighting Scene</div>
+        <div class="light-selector">
+          <button class="light-btn active" onclick="setVisLight(this,'daylight')">
+            <div class="light-dot" style="background:#FFF7E0;border:1px solid rgba(255,255,255,0.3)"></div>
+            Daylight
+          </button>
+          <button class="light-btn" onclick="setVisLight(this,'warm')">
+            <div class="light-dot" style="background:#FF9A3C"></div>
+            Warm
+          </button>
+          <button class="light-btn" onclick="setVisLight(this,'overcast')">
+            <div class="light-dot" style="background:#B0C4D8"></div>
+            Overcast
+          </button>
+        </div>
+      </div>
+      <div class="vis-section" style="border-bottom:none;flex:0;padding-bottom:8px">
+        <div class="vis-section-label">Select Colour</div>
+      </div>
+      <div class="vis-colour-scroll" id="visPalette"></div>
+      <div class="vis-cta">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--fg3);letter-spacing:0.08em;margin-bottom:12px;text-transform:uppercase" id="visSelectedLabel">PC-4072 — Graphite Slate</div>
+        <button class="btn-full accent" onclick="openModal()" style="margin-bottom:8px">Request This Sample</button>
+        <button class="btn-full ghost">↓ Download View</button>
+      </div>
+    </div>
+    <div class="vis-canvas">
+      <div class="vis-bg-grid"></div>
+      <div class="vis-model-area" id="visModel"></div>
+      <div class="vis-info-overlay" id="visInfoOverlay"></div>
+      <div class="vis-share-bar">
+        <button class="vis-btn">Share</button>
+        <button class="vis-btn">↓ PNG</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================== PRODUCTS ================== -->
+<div class="page" id="page-products" data-screen-label="05 Products">
+  <div class="page-header">
+    <div class="page-eyebrow">Products & Finishes</div>
+    <h1 class="page-title">Four Finish Types</h1>
+    <p class="page-subtitle">Pure Polyester, Epoxy Polyester, Pure Epoxy, and Polyurethane — each engineered for specific applications and environments.</p>
+  </div>
+  <div id="productsGrid" style="padding:40px 64px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border)">
+  </div>
+</div>
+
+<!-- ================== FOR ARCHITECTS ================== -->
+<div class="page" id="page-architects" data-screen-label="06 For Architects">
+  <div class="arch-hero">
+    <div>
+      <div class="page-eyebrow">For Architects</div>
+      <h1 class="page-title" style="margin-bottom:20px">Specification<br/>Assets</h1>
+      <p style="font-size:16px;color:var(--fg2);font-weight:300;line-height:1.7;max-width:420px">
+        Everything you need to specify Polybond powder coatings in your project documentation — BIM assets, swatch libraries, LRV data, and step-by-step guidance.
+      </p>
+    </div>
+    <div>
+      <div style="border:1px solid var(--border);border-radius:var(--radius);padding:28px;background:var(--surface)">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--fg3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px">Quick Spec Reference</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-family:var(--mono);font-size:12px;color:var(--fg2)">
+            <span style="color:var(--accent)">PRODUCT CODE</span> — PC-4072-SM<br/>
+            <span style="color:var(--accent)">SERIES</span> — Pure Polyester<br/>
+            <span style="color:var(--accent)">FINISH</span> — Satin Matt (10–15° gloss)<br/>
+            <span style="color:var(--accent)">APPLICATION</span> — Architectural extrusions, louvres<br/>
+            <span style="color:var(--accent)">COATING SYSTEM</span> — Twin-screw extruded<br/>
+            <span style="color:var(--accent)">MANUFACTURER</span> — Polybond Coating Pvt. Ltd., Navi Mumbai<br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arch-downloads">
+    <div class="download-card">
+      <div class="download-format">.adsklib</div>
+      <div class="download-title">Revit Material Library</div>
+      <p class="download-desc">Full Polybond colour range as Autodesk Appearance Assets. Drop into your Revit material browser and apply directly to facades, extrusions, and cladding.</p>
+      <button class="download-btn">↓ Download Polybond.adsklib</button>
+    </div>
+    <div class="download-card">
+      <div class="download-format">.ase</div>
+      <div class="download-title">Adobe Swatch File</div>
+      <p class="download-desc">All 300+ colours in Adobe Swatch Exchange format. Import into Illustrator or Photoshop for accurate colour selection in presentation drawings and boards.</p>
+      <button class="download-btn">↓ Download Polybond.ase</button>
+    </div>
+    <div class="download-card">
+      <div class="download-format">.pdf</div>
+      <div class="download-title">Full Shade Card PDF</div>
+      <p class="download-desc">Digital shade card replacing the scanned version. All colours on white and black backgrounds, with product codes, RAL equivalents, and LRV values printed.</p>
+      <button class="download-btn">↓ Download Shade Card</button>
+    </div>
+    <div class="download-card">
+      <div class="download-format">.pdf</div>
+      <div class="download-title">LRV Documentation</div>
+      <p class="download-desc">Light Reflectance Values for all colours, formatted for compliance submissions. Includes testing methodology, standards reference, and professional sign-off format.</p>
+      <button class="download-btn">↓ Download LRV Report</button>
+    </div>
+  </div>
+
+  <div class="lrv-section">
+    <div>
+      <div class="section-title">How to Specify Polybond</div>
+      <h2 style="font-size:28px;font-weight:500;margin-bottom:20px;line-height:1.3">In four steps</h2>
+      <p style="font-size:14px;color:var(--fg2);line-height:1.7;margin-bottom:32px">
+        Use this wording in your specification documents to reference Polybond colours unambiguously. All values are traceable to physical samples held at our Navi Mumbai facility.
+      </p>
+      <div class="spec-steps">
+        <div class="spec-step">
+          <span class="step-num">01</span>
+          <div class="step-content">
+            <div class="step-title">Identify the colour</div>
+            <p class="step-desc">Use the Polybond product code (e.g. PC-4072-SM) from the digital colour library. Never use only a RAL number — RAL is not a manufacturing specification.</p>
+          </div>
+        </div>
+        <div class="spec-step">
+          <span class="step-num">02</span>
+          <div class="step-content">
+            <div class="step-title">Download the TDS</div>
+            <p class="step-desc">Attach the Technical Data Sheet as a supporting document. This confirms film thickness, adhesion, and salt-spray ratings for your application.</p>
+          </div>
+        </div>
+        <div class="spec-step">
+          <span class="step-num">03</span>
+          <div class="step-content">
+            <div class="step-title">Request a physical sample</div>
+            <p class="step-desc">Always approve a coated metal sample before production. Use the Sample Request on any colour page — reference the product code for traceability.</p>
+          </div>
+        </div>
+        <div class="spec-step">
+          <span class="step-num">04</span>
+          <div class="step-content">
+            <div class="step-title">Reference in drawings</div>
+            <p class="step-desc">Write: "Powder coat finish: Polybond [PC-4072-SM], Graphite Slate, Satin Matt. Manufacturer: Polybond Coating Pvt. Ltd., Navi Mumbai." Include LRV if required.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-title">Light Reflectance Values</div>
+      <h2 style="font-size:28px;font-weight:500;margin-bottom:20px;line-height:1.3">LRV for compliance</h2>
+      <p style="font-size:14px;color:var(--fg2);line-height:1.7;margin-bottom:24px">
+        LRV (Light Reflectance Value) measures the percentage of visible light a surface reflects. Values range from 0 (absolute black) to 100 (pure white). Many accessibility and building codes require a minimum LRV contrast between surfaces.
+      </p>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:24px">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--fg3);letter-spacing:0.08em;margin-bottom:14px;text-transform:uppercase">LRV Range Guide</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:16px;height:16px;border-radius:2px;background:#1a1a1a;border:1px solid var(--border2);flex-shrink:0"></div>
+            <span style="font-family:var(--mono);font-size:12px;color:var(--fg2)">0–20 &nbsp; Dark tones — absorb heat, check exterior use</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:16px;height:16px;border-radius:2px;background:#888;flex-shrink:0"></div>
+            <span style="font-family:var(--mono);font-size:12px;color:var(--fg2)">20–60 &nbsp; Mid-tones — general architectural use</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:16px;height:16px;border-radius:2px;background:#ddd;flex-shrink:0"></div>
+            <span style="font-family:var(--mono);font-size:12px;color:var(--fg2)">60–100 &nbsp; Light tones — high-contrast accessibility uses</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn-full ghost" style="align-self:flex-start;max-width:260px" onclick="showPage('colours')">Browse by LRV →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sample Request Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-title">Request Sample</div>
+    <div class="modal-sub" id="modalSub">We'll dispatch a coated metal sample within 3–5 working days.</div>
+    <div class="form-group">
+      <label class="form-label">Your Name</label>
+      <input class="form-input" type="text" placeholder="Ar. Priya Sharma" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Practice / Company</label>
+      <input class="form-input" type="text" placeholder="Studio Forma Architects" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input class="form-input" type="email" placeholder="priya@studioforma.in" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Project Reference (optional)</label>
+      <input class="form-input" type="text" placeholder="BKC Tower — Facade" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn-full accent" style="flex:1">Send Request</button>
+      <button class="btn-full ghost" style="flex:0;padding:13px 20px" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script type="text/babel">
+
+// ===== COLOUR DATA =====
+const COLOURS = [
+  // Graphites / Blacks
+  { code:'PC-1001', name:'Jet Black', hex:'#0D0D0D', ral:'RAL 9005', lrv:2, gloss:35, finish:'Satin Matt', lab:'L:4 a:0 b:0', rgb:'13,13,13' },
+  { code:'PC-1002', name:'Anthracite', hex:'#2C2C2C', ral:'RAL 7016', lrv:5, gloss:35, finish:'Satin Matt', lab:'L:14 a:0 b:0', rgb:'44,44,44' },
+  { code:'PC-1003', name:'Graphite Slate', hex:'#3D3D3D', ral:'RAL 7024', lrv:8, gloss:30, finish:'Satin Matt', lab:'L:20 a:0 b:-1', rgb:'61,61,61' },
+  { code:'PC-1004', name:'Charcoal', hex:'#4A4A4A', ral:'RAL 7021', lrv:12, gloss:35, finish:'Satin Matt', lab:'L:24 a:0 b:0', rgb:'74,74,74' },
+  { code:'PC-1005', name:'Dark Basalt', hex:'#3B3935', ral:'RAL 7012', lrv:9, gloss:20, finish:'Texture', lab:'L:22 a:0 b:2', rgb:'59,57,53' },
+  { code:'PC-1006', name:'Slate Grey', hex:'#5C5C5C', ral:'RAL 7015', lrv:16, gloss:30, finish:'Satin Matt', lab:'L:30 a:0 b:0', rgb:'92,92,92' },
+  // Warm Greys
+  { code:'PC-2001', name:'Warm Stone', hex:'#8A8278', ral:'RAL 7006', lrv:28, gloss:35, finish:'Satin Matt', lab:'L:50 a:1 b:4', rgb:'138,130,120' },
+  { code:'PC-2002', name:'Linen', hex:'#C8C2B8', ral:'RAL 7044', lrv:55, gloss:30, finish:'Satin Matt', lab:'L:72 a:1 b:4', rgb:'200,194,184' },
+  { code:'PC-2003', name:'Pebble', hex:'#A09890', ral:'RAL 7032', lrv:38, gloss:35, finish:'Satin Matt', lab:'L:60 a:1 b:3', rgb:'160,152,144' },
+  { code:'PC-2004', name:'Limestone', hex:'#D4CFC8', ral:'RAL 7047', lrv:66, gloss:25, finish:'Satin Matt', lab:'L:80 a:0 b:3', rgb:'212,207,200' },
+  { code:'PC-2005', name:'Travertine', hex:'#B8B0A4', ral:'RAL 7034', lrv:47, gloss:30, finish:'Satin Matt', lab:'L:68 a:1 b:4', rgb:'184,176,164' },
+  // Cool Greys / Blues
+  { code:'PC-3001', name:'Storm Blue', hex:'#4A5568', ral:'RAL 5014', lrv:14, gloss:35, finish:'Satin Matt', lab:'L:32 a:-1 b:-8', rgb:'74,85,104' },
+  { code:'PC-3002', name:'Steel', hex:'#687280', ral:'RAL 7000', lrv:20, gloss:60, finish:'Gloss', lab:'L:42 a:-1 b:-5', rgb:'104,114,128' },
+  { code:'PC-3003', name:'Night Sky', hex:'#1E2540', ral:'RAL 5026', lrv:4, gloss:35, finish:'Satin Matt', lab:'L:14 a:1 b:-14', rgb:'30,37,64' },
+  { code:'PC-3004', name:'Slate Blue', hex:'#5B6A7A', ral:'RAL 5009', lrv:17, gloss:30, finish:'Satin Matt', lab:'L:40 a:-2 b:-8', rgb:'91,106,122' },
+  { code:'PC-3005', name:'Powder Blue', hex:'#8FA4B8', ral:'RAL 5024', lrv:36, gloss:65, finish:'Gloss', lab:'L:62 a:-3 b:-10', rgb:'143,164,184' },
+  // Greens
+  { code:'PC-4001', name:'Sage', hex:'#7A8C72', ral:'RAL 6021', lrv:24, gloss:30, finish:'Satin Matt', lab:'L:52 a:-6 b:8', rgb:'122,140,114' },
+  { code:'PC-4002', name:'Forest', hex:'#3D5A47', ral:'RAL 6009', lrv:10, gloss:35, finish:'Satin Matt', lab:'L:32 a:-10 b:8', rgb:'61,90,71' },
+  { code:'PC-4003', name:'Eucalyptus', hex:'#8FAF9A', ral:'RAL 6019', lrv:33, gloss:30, finish:'Satin Matt', lab:'L:66 a:-8 b:6', rgb:'143,175,154' },
+  // Terracotta / Warm
+  { code:'PC-5001', name:'Copper Dust', hex:'#B87333', ral:'RAL 2001', lrv:20, gloss:70, finish:'Metallic', lab:'L:52 a:14 b:32', rgb:'184,115,51' },
+  { code:'PC-5002', name:'Terracotta', hex:'#C17A4A', ral:'RAL 8023', lrv:24, gloss:35, finish:'Satin Matt', lab:'L:56 a:16 b:28', rgb:'193,122,74' },
+  { code:'PC-5003', name:'Rust', hex:'#8B4513', ral:'RAL 8002', lrv:10, gloss:35, finish:'Satin Matt', lab:'L:34 a:20 b:28', rgb:'139,69,19' },
+  // Whites
+  { code:'PC-6001', name:'Pure White', hex:'#F5F5F0', ral:'RAL 9010', lrv:88, gloss:35, finish:'Satin Matt', lab:'L:96 a:0 b:2', rgb:'245,245,240' },
+  { code:'PC-6002', name:'Traffic White', hex:'#EEEEEE', ral:'RAL 9016', lrv:85, gloss:70, finish:'Gloss', lab:'L:94 a:0 b:0', rgb:'238,238,238' },
+  { code:'PC-6003', name:'Cream', hex:'#E8E0D0', ral:'RAL 9001', lrv:78, gloss:30, finish:'Satin Matt', lab:'L:88 a:0 b:6', rgb:'232,224,208' },
+  // Metallic
+  { code:'PC-7001', name:'Champagne', hex:'#C4A882', ral:'RAL 1001', lrv:42, gloss:65, finish:'Metallic', lab:'L:68 a:4 b:18', rgb:'196,168,130' },
+  { code:'PC-7002', name:'Bronze Anodic', hex:'#7A5C3C', ral:'RAL 8025', lrv:16, gloss:60, finish:'Metallic', lab:'L:40 a:8 b:18', rgb:'122,92,60' },
+  { code:'PC-7003', name:'Silver Metallic', hex:'#A8A8A8', ral:'RAL 9006', lrv:44, gloss:65, finish:'Metallic', lab:'L:66 a:0 b:0', rgb:'168,168,168' },
+  { code:'PC-7004', name:'Anthracite Metal', hex:'#3C3C42', ral:'RAL 7016', lrv:7, gloss:60, finish:'Metallic', lab:'L:22 a:0 b:-2', rgb:'60,60,66' },
+  // Dark Textures
+  { code:'PC-8001', name:'Hammertone Black', hex:'#222222', ral:'RAL 9005', lrv:3, gloss:10, finish:'Texture', lab:'L:8 a:0 b:0', rgb:'34,34,34' },
+  { code:'PC-8002', name:'Hammertone Grey', hex:'#555555', ral:'RAL 7016', lrv:14, gloss:10, finish:'Texture', lab:'L:32 a:0 b:0', rgb:'85,85,85' },
+  { code:'PC-8003', name:'Sandstone', hex:'#C4AC8A', ral:'RAL 1001', lrv:46, gloss:8, finish:'Texture', lab:'L:70 a:4 b:16', rgb:'196,172,138' },
+];
+
+const PRODUCTS = [
+  { name:'Pure Polyester', short:'PP', colour:'#E8A857', desc:'The workhorse of architectural powder coating. UV stable, excellent weatherability. Specified for exterior facades, curtain walling, aluminium extrusions.', apps:['Facade cladding', 'Curtain walling', 'Extrusion profiles', 'Louvre systems'] },
+  { name:'Epoxy Polyester', short:'EP', colour:'#6B8FA8', desc:'Hybrid chemistry. Superior adhesion and chemical resistance. Specified for interior steelwork, industrial components, and applications with chemical exposure.', apps:['Interior steel', 'Furniture', 'Appliances', 'Industrial components'] },
+  { name:'Pure Epoxy', short:'PE', colour:'#7A9A78', desc:'Maximum chemical and corrosion resistance. Chalks on UV exposure — interior use only or as primer coat in duplex systems.', apps:['Pipe coating', 'Rebar', 'Interior structural steel', 'Marine interiors'] },
+  { name:'Polyurethane', short:'PU', colour:'#C47A5A', desc:'Premium exterior performance. Combines the UV stability of polyester with enhanced flexibility and scratch resistance. For high-specification projects.', apps:['Premium facades', 'High-traffic surfaces', 'Handrails', 'Transport'] },
+];
+
+// ===== STATE =====
+let currentPage = 'home';
+let activeColour = COLOURS[2]; // Graphite Slate default
+let visActiveColour = COLOURS[2];
+let filters = { finish:'all', lrv:'all' };
+let searchQuery = '';
+let lightingMode = 'daylight';
+let visLighting = 'daylight';
+let visModel = 'extrusion';
+
+// ===== PAGE NAVIGATION =====
+window.showPage = function(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  currentPage = page;
+  const el = document.getElementById('page-' + page);
+  if (el) el.classList.add('active');
+
+  // Activate nav link
+  document.querySelectorAll('.nav-link').forEach(l => {
+    if (l.textContent.toLowerCase().replace(/\s/g,'').includes(
+      page === 'colour-detail' ? 'colours' :
+      page === 'architects' ? 'architects' :
+      page
+    )) l.classList.add('active');
+  });
+  window.scrollTo(0, 0);
+
+  if (page === 'colours') renderColourGrid();
+  if (page === 'visualiser') renderVisualiser();
+  if (page === 'products') renderProducts();
+};
+
+window.openColour = function(code) {
+  const c = COLOURS.find(x => x.code === code);
+  if (!c) return;
+  activeColour = c;
+  renderColourDetail(c);
+  showPage('colour-detail');
+};
+
+// ===== COLOUR GRID =====
+function getFilteredColours() {
+  return COLOURS.filter(c => {
+    if (filters.finish !== 'all' && c.finish !== filters.finish) return false;
+    if (filters.lrv === 'dark' && c.lrv >= 20) return false;
+    if (filters.lrv === 'mid' && (c.lrv < 20 || c.lrv > 60)) return false;
+    if (filters.lrv === 'light' && c.lrv <= 60) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!c.name.toLowerCase().includes(q) && !c.code.toLowerCase().includes(q) && !c.ral.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function renderColourGrid() {
+  const grid = document.getElementById('colourGrid');
+  const cols = getFilteredColours();
+  grid.innerHTML = cols.map(c => `
+    <div class="colour-card" onclick="openColour('${c.code}')">
+      <div class="colour-swatch" style="background:${c.hex}">
+        <span class="swatch-finish-badge">${c.finish}</span>
+      </div>
+      <div class="colour-info">
+        <div class="colour-code">${c.code}</div>
+        <div class="colour-name">${c.name}</div>
+        <div class="colour-meta">
+          <span>${c.ral}</span>
+          <span>LRV ${c.lrv}</span>
+          <span>${c.gloss}°</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.setFilter = function(btn, type, val) {
+  // deactivate siblings of same type
+  const bar = document.getElementById('filterBar');
+  // figure out which group
+  const allChips = bar.querySelectorAll('.filter-chip');
+  // Find all chips in the same visual group (between filter-labels)
+  const nodes = [...bar.childNodes];
+  let inGroup = false, groupStart = false;
+  let groupChips = [];
+
+  // Simple approach: reset chips that share same data
+  allChips.forEach(ch => {
+    if (ch.getAttribute('onclick') && ch.getAttribute('onclick').includes("'"+type+"'")) {
+      ch.classList.remove('active');
+    }
+  });
+  btn.classList.add('active');
+
+  filters[type] = val;
+  renderColourGrid();
+};
+
+window.searchColours = function(val) {
+  searchQuery = val;
+  renderColourGrid();
+};
+
+// ===== COLOUR DETAIL =====
+function renderColourDetail(c) {
+  document.getElementById('detailCode').textContent = c.code + ' — ' + c.finish;
+  document.getElementById('detailName').textContent = c.name;
+  document.getElementById('detailSwatch').style.background = c.hex;
+
+  const specs = [
+    ['HEX', c.hex],
+    ['RAL', c.ral],
+    ['sRGB', c.rgb],
+    ['LAB', c.lab],
+    ['LRV', c.lrv + '%'],
+    ['Gloss', c.gloss + '°'],
+  ];
+  document.getElementById('specGrid').innerHTML = specs.map(([l,v]) => `
+    <div class="spec-cell">
+      <span class="spec-label">${l}</span>
+      <span class="spec-val">${v}</span>
+    </div>
+  `).join('');
+
+  // LRV bar
+  document.getElementById('lrvValue').textContent = c.lrv;
+  document.getElementById('lrvMarker').style.left = c.lrv + '%';
+
+  // Similar colours
+  const similar = COLOURS.filter(x => x.code !== c.code && Math.abs(x.lrv - c.lrv) < 12).slice(0, 8);
+  document.getElementById('similarColours').innerHTML = similar.map(s => `
+    <div class="similar-swatch" title="${s.name}" style="background:${s.hex}" onclick="openColour('${s.code}')"></div>
+  `).join('');
+
+  // Profile visualiser
+  renderProfileSVG(c.hex, lightingMode);
+  document.getElementById('modalSub').textContent = `Requesting sample of ${c.code} — ${c.name}. We'll dispatch within 3–5 working days.`;
+}
+
+function renderProfileSVG(hex, lighting) {
+  const container = document.getElementById('profileContainer');
+  if (!container) return;
+  const light = lighting === 'daylight' ? 1.0 : lighting === 'warm' ? 0.85 : 0.72;
+  const lightTint = lighting === 'warm' ? 'rgba(255,160,60,0.08)' : lighting === 'overcast' ? 'rgba(140,180,220,0.06)' : 'transparent';
+
+  container.innerHTML = `
+    <svg viewBox="0 0 480 280" width="480" height="280" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="pgFace" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="${hex}" stop-opacity="0.6"/>
+          <stop offset="30%" stop-color="${hex}" stop-opacity="${light}"/>
+          <stop offset="100%" stop-color="${hex}" stop-opacity="0.7"/>
+        </linearGradient>
+        <linearGradient id="pgTop" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${hex}" stop-opacity="1"/>
+          <stop offset="100%" stop-color="${hex}" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="pgSide" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="${hex}" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="${hex}" stop-opacity="0.2"/>
+        </linearGradient>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.5"/>
+        </filter>
+      </defs>
+      <!-- Grid floor -->
+      <line x1="80" y1="230" x2="400" y2="230" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="80" y1="230" x2="140" y2="190" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <!-- Extrusion profile - isometric box extrusion -->
+      <!-- Front face -->
+      <path d="M160,90 L320,90 L320,210 L160,210 Z" fill="url(#pgFace)" filter="url(#shadow)"/>
+      <!-- Top face -->
+      <path d="M160,90 L320,90 L360,60 L200,60 Z" fill="url(#pgTop)"/>
+      <!-- Right side face -->
+      <path d="M320,90 L360,60 L360,180 L320,210 Z" fill="url(#pgSide)"/>
+      <!-- Channel cut out (extrusion detail) -->
+      <rect x="195" y="90" width="20" height="120" fill="rgba(0,0,0,0.3)"/>
+      <rect x="265" y="90" width="20" height="120" fill="rgba(0,0,0,0.3)"/>
+      <!-- Top channel -->
+      <path d="M200,60 L220,60 L220,82 L200,82 Z" fill="rgba(0,0,0,0.25)"/>
+      <path d="M270,60 L290,60 L290,82 L270,82 Z" fill="rgba(0,0,0,0.25)"/>
+      <!-- Highlight edge -->
+      <line x1="160" y1="90" x2="320" y2="90" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+      <line x1="160" y1="90" x2="200" y2="60" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <!-- Shadow ground -->
+      <ellipse cx="240" cy="238" rx="100" ry="8" fill="rgba(0,0,0,0.3)"/>
+      <!-- Light tint overlay -->
+      <rect x="0" y="0" width="480" height="280" fill="${lightTint}" pointer-events="none"/>
+      <!-- Dimension annotation -->
+      <line x1="160" y1="220" x2="320" y2="220" stroke="rgba(255,255,255,0.15)" stroke-width="0.5" stroke-dasharray="3,3"/>
+      <text x="240" y="235" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="monospace" font-size="9">60 × 40mm T-SLOT PROFILE</text>
+    </svg>
+  `;
+}
+
+window.setLighting = function(btn, mode) {
+  document.querySelectorAll('.lighting-tabs .light-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  lightingMode = mode;
+  renderProfileSVG(activeColour.hex, mode);
+};
+
+// ===== VISUALISER PAGE =====
+function renderVisualiser() {
+  // Palette
+  const palette = document.getElementById('visPalette');
+  palette.innerHTML = COLOURS.map(c => `
+    <div class="vis-swatch-btn ${c.code === visActiveColour.code ? 'active' : ''}"
+      title="${c.name} (${c.code})"
+      style="background:${c.hex}"
+      onclick="setVisColour('${c.code}')">
+    </div>
+  `).join('');
+  renderVisModel();
+  updateVisInfo();
+}
+
+window.setVisColour = function(code) {
+  visActiveColour = COLOURS.find(c => c.code === code) || visActiveColour;
+  document.querySelectorAll('.vis-swatch-btn').forEach((el, i) => {
+    el.classList.toggle('active', COLOURS[i] && COLOURS[i].code === code);
+  });
+  renderVisModel();
+  updateVisInfo();
+};
+
+window.setModel = function(btn, model) {
+  visModel = model;
+  document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderVisModel();
+};
+
+window.setVisLight = function(btn, mode) {
+  visLighting = mode;
+  document.querySelectorAll('.light-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderVisModel();
+};
+
+function renderVisModel() {
+  const area = document.getElementById('visModel');
+  if (!area) return;
+  const c = visActiveColour;
+  const hex = c.hex;
+  const light = visLighting === 'daylight' ? 1.0 : visLighting === 'warm' ? 0.85 : 0.72;
+  const lightTint = visLighting === 'warm' ? 'rgba(255,160,60,0.10)' : visLighting === 'overcast' ? 'rgba(140,180,220,0.08)' : 'transparent';
+  const bgTint = visLighting === 'daylight' ? '#1a1c24' : visLighting === 'warm' ? '#1e1810' : '#161c22';
+
+  area.parentElement.style.background = bgTint;
+
+  let svg = '';
+  if (visModel === 'extrusion') {
+    svg = `<svg viewBox="0 0 640 480" width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="vFace" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="${hex}" stop-opacity="0.55"/>
+          <stop offset="50%" stop-color="${hex}" stop-opacity="${light}"/>
+          <stop offset="100%" stop-color="${hex}" stop-opacity="0.65"/>
+        </linearGradient>
+        <linearGradient id="vTop" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${hex}" stop-opacity="1"/>
+          <stop offset="100%" stop-color="${hex}" stop-opacity="0.5"/>
+        </linearGradient>
+        <linearGradient id="vSide" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="${hex}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="${hex}" stop-opacity="0.15"/>
+        </linearGradient>
+        <filter id="vs"><feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#000" flood-opacity="0.6"/></filter>
+      </defs>
+      <!-- Long extrusion - front -->
+      <path d="M100,140 L540,140 L540,340 L100,340 Z" fill="url(#vFace)" filter="url(#vs)"/>
+      <!-- Top -->
+      <path d="M100,140 L540,140 L580,100 L140,100 Z" fill="url(#vTop)"/>
+      <!-- Right end -->
+      <path d="M540,140 L580,100 L580,300 L540,340 Z" fill="url(#vSide)"/>
+      <!-- Groove detail x3 -->
+      <rect x="180" y="140" width="18" height="200" fill="rgba(0,0,0,0.35)"/>
+      <rect x="300" y="140" width="18" height="200" fill="rgba(0,0,0,0.35)"/>
+      <rect x="420" y="140" width="18" height="200" fill="rgba(0,0,0,0.35)"/>
+      <!-- Top grooves -->
+      <path d="M183,100 L183,132 L198,132 L198,100 Z" fill="rgba(0,0,0,0.3)"/>
+      <path d="M303,100 L303,132 L318,132 L318,100 Z" fill="rgba(0,0,0,0.3)"/>
+      <path d="M423,100 L423,132 L438,132 L438,100 Z" fill="rgba(0,0,0,0.3)"/>
+      <!-- Highlight edge -->
+      <line x1="100" y1="140" x2="540" y2="140" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+      <line x1="100" y1="140" x2="140" y2="100" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+      <!-- Shadow -->
+      <ellipse cx="320" cy="356" rx="230" ry="14" fill="rgba(0,0,0,0.4)"/>
+      <rect x="0" y="0" width="640" height="480" fill="${lightTint}" pointer-events="none"/>
+      <text x="320" y="430" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="monospace" font-size="11">ALUMINIUM T-SLOT EXTRUSION 80×40</text>
+    </svg>`;
+  } else if (visModel === 'louvre') {
+    const blades = [0,1,2,3,4,5];
+    const bladesSVG = blades.map((i) => {
+      const y = 100 + i * 52;
+      return `
+        <path d="M80,${y} L560,${y} L570,${y-16} L90,${y-16} Z" fill="url(#vFace)" ${i===0?'filter="url(#vs)"':''}/>
+        <path d="M560,${y} L570,${y-16} L570,${y+8} L560,${y+24} Z" fill="url(#vSide)"/>
+        <line x1="80" y1="${y-16}" x2="560" y2="${y-16}" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      `;
+    }).join('');
+    svg = `<svg viewBox="0 0 640 480" width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="vFace" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="${hex}" stop-opacity="0.55"/>
+          <stop offset="50%" stop-color="${hex}" stop-opacity="${light}"/>
+          <stop offset="100%" stop-color="${hex}" stop-opacity="0.65"/>
+        </linearGradient>
+        <linearGradient id="vSide" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="${hex}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="${hex}" stop-opacity="0.15"/>
+        </linearGradient>
+        <filter id="vs"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.5"/></filter>
+      </defs>
+      ${bladesSVG}
+      <ellipse cx="320" cy="420" rx="260" ry="10" fill="rgba(0,0,0,0.35)"/>
+      <rect x="0" y="0" width="640" height="480" fill="${lightTint}" pointer-events="none"/>
+      <text x="320" y="455" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="monospace" font-size="11">ALUMINIUM LOUVRE SYSTEM — 75mm BLADE PITCH</text>
+    </svg>`;
+  } else if (visModel === 'fixture') {
+    svg = `<svg viewBox="0 0 640 480" width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="vFixture" cx="40%" cy="35%">
+          <stop offset="0%" stop-color="${hex}" stop-opacity="1"/>
+          <stop offset="60%" stop-color="${hex}" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="${hex}" stop-opacity="0.4"/>
+        </radialGradient>
+        <filter id="vs"><feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000" flood-opacity="0.7"/></filter>
+        <radialGradient id="glow" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="#fffbe0" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#fffbe0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- Body cylinder -->
+      <ellipse cx="320" cy="155" rx="120" ry="22" fill="${hex}" fill-opacity="0.6"/>
+      <path d="M200,155 L200,260 Q200,280 320,280 Q440,280 440,260 L440,155 Z" fill="url(#vFixture)" filter="url(#vs)"/>
+      <ellipse cx="320" cy="260" rx="120" ry="20" fill="${hex}" fill-opacity="0.5"/>
+      <!-- Lens ring -->
+      <ellipse cx="320" cy="262" rx="80" ry="14" fill="rgba(0,0,0,0.6)" stroke="${hex}" stroke-opacity="0.3" stroke-width="1"/>
+      <!-- LED glow -->
+      <ellipse cx="320" cy="262" rx="60" ry="10" fill="url(#glow)" fill-opacity="${visLighting === 'overcast' ? 0.6 : 0.9}"/>
+      <!-- Mount arm -->
+      <rect x="306" y="80" width="28" height="80" fill="${hex}" fill-opacity="0.7"/>
+      <rect x="250" y="72" width="140" height="14" rx="4" fill="${hex}" fill-opacity="0.8"/>
+      <!-- Highlight -->
+      <path d="M210,160 Q240,145 320,142 Q400,145 430,160" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
+      <!-- Shadow -->
+      <ellipse cx="320" cy="380" rx="140" ry="16" fill="rgba(0,0,0,0.5)"/>
+      <rect x="0" y="0" width="640" height="480" fill="${lightTint}" pointer-events="none"/>
+      <text x="320" y="420" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="monospace" font-size="11">ARCHITECTURAL PENDANT FIXTURE — IP65</text>
+    </svg>`;
+  } else {
+    // Cladding panel
+    const rows = 3, cols = 4;
+    let panels = '';
+    for (let r = 0; r < rows; r++) {
+      for (let cc = 0; cc < cols; cc++) {
+        const x = 80 + cc * 132 + r * 20;
+        const y = 80 + r * 100 - cc * 10;
+        const shade = light - r * 0.06 - cc * 0.02;
+        panels += `<path d="M${x},${y+8} L${x+120},${y} L${x+120},${y+90} L${x},${y+98} Z" fill="${hex}" fill-opacity="${shade}" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>`;
+        panels += `<line x1="${x}" y1="${y+8}" x2="${x+120}" y2="${y}" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>`;
+      }
+    }
+    svg = `<svg viewBox="0 0 640 480" width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+      <filter id="vs"><feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#000" flood-opacity="0.5"/></filter>
+      <g filter="url(#vs)">${panels}</g>
+      <rect x="0" y="0" width="640" height="480" fill="${lightTint}" pointer-events="none"/>
+      <ellipse cx="320" cy="390" rx="220" ry="12" fill="rgba(0,0,0,0.4)"/>
+      <text x="320" y="430" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="monospace" font-size="11">POWDER-COATED ALUMINIUM CLADDING PANEL</text>
+    </svg>`;
+  }
+  area.innerHTML = svg;
+}
+
+function updateVisInfo() {
+  const c = visActiveColour;
+  document.getElementById('visInfoOverlay').innerHTML = `
+    <div class="vis-info-item"><span class="vis-info-label">Code</span><span class="vis-info-val">${c.code}</span></div>
+    <div class="vis-info-item"><span class="vis-info-label">Name</span><span class="vis-info-val">${c.name}</span></div>
+    <div class="vis-info-item"><span class="vis-info-label">Finish</span><span class="vis-info-val">${c.finish}</span></div>
+    <div class="vis-info-item"><span class="vis-info-label">LRV</span><span class="vis-info-val">${c.lrv}%</span></div>
+    <div class="vis-info-item"><span class="vis-info-label">HEX</span><span class="vis-info-val">${c.hex}</span></div>
+  `;
+  document.getElementById('visSelectedLabel').textContent = `${c.code} — ${c.name}`;
+}
+
+// ===== PRODUCTS =====
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = PRODUCTS.map(p => `
+    <div style="background:var(--bg);padding:48px 40px;display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="width:48px;height:48px;border-radius:3px;background:${p.colour};opacity:0.8"></div>
+        <div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--fg3);letter-spacing:0.1em;margin-bottom:2px">${p.short}</div>
+          <div style="font-size:20px;font-weight:500">${p.name}</div>
+        </div>
+      </div>
+      <p style="font-size:14px;color:var(--fg2);line-height:1.7">${p.desc}</p>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--fg3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px">Applications</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          ${p.apps.map(a => `<span style="padding:4px 12px;border:1px solid var(--border2);border-radius:100px;font-size:12px;color:var(--fg2)">${a}</span>`).join('')}
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn-full ghost" style="flex:1;font-size:12px">↓ TDS</button>
+        <button class="btn-full ghost" style="flex:1;font-size:12px" onclick="showPage('colours')">Browse Colours →</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== HERO MOSAIC =====
+function renderMosaic() {
+  const grid = document.getElementById('mosaicGrid');
+  if (!grid) return;
+  const shuffle = [...COLOURS].sort(() => Math.random() - 0.5);
+  // Fill 6×8 = 48 cells
+  grid.innerHTML = Array.from({length: 48}, (_,i) => {
+    const c = shuffle[i % shuffle.length];
+    return `<div class="mosaic-cell" style="background:${c.hex}" onclick="openColour('${c.code}')" title="${c.name}"></div>`;
+  }).join('');
+}
+
+// ===== MODAL =====
+window.openModal = function() {
+  document.getElementById('modalOverlay').classList.add('open');
+};
+window.closeModal = function() {
+  document.getElementById('modalOverlay').classList.remove('open');
+};
+window.closeModalOutside = function(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+};
+
+// ===== INIT =====
+renderMosaic();
+renderColourGrid();
+
+</script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<script type="text/babel">
+// Tweaks
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#D4A24A",
+  "bgDarkness": "deep",
+  "fontStyle": "geometric",
+  "gridDensity": "comfortable",
+  "showLRV": true
+}/*EDITMODE-END*/;
+
+function PolybondTweaks() {
+  const result = useTweaks(TWEAK_DEFAULTS);
+  if (!result || !result.tweaks) return null;
+  const { tweaks, setTweak } = result;
+
+  React.useEffect(() => {
+    const r = document.documentElement;
+    if (tweaks.accentColor) {
+      r.style.setProperty('--accent', tweaks.accentColor);
+    }
+    if (tweaks.bgDarkness === 'deep') {
+      r.style.setProperty('--bg', '#0F0F1A');
+      r.style.setProperty('--bg2', '#14141F');
+      r.style.setProperty('--bg3', '#1C1C2E');
+    } else if (tweaks.bgDarkness === 'charcoal') {
+      r.style.setProperty('--bg', '#191919');
+      r.style.setProperty('--bg2', '#1E1E1E');
+      r.style.setProperty('--bg3', '#242424');
+    } else {
+      r.style.setProperty('--bg', '#0A0A0F');
+      r.style.setProperty('--bg2', '#0E0E16');
+      r.style.setProperty('--bg3', '#16162A');
+    }
+    if (tweaks.gridDensity === 'compact') {
+      document.querySelectorAll('.colour-grid').forEach(g => g.style.gridTemplateColumns = 'repeat(auto-fill,minmax(160px,1fr))');
+    } else if (tweaks.gridDensity === 'airy') {
+      document.querySelectorAll('.colour-grid').forEach(g => g.style.gridTemplateColumns = 'repeat(auto-fill,minmax(260px,1fr))');
+    } else {
+      document.querySelectorAll('.colour-grid').forEach(g => g.style.gridTemplateColumns = 'repeat(auto-fill,minmax(200px,1fr))');
+    }
+  }, [tweaks]);
+
+  return React.createElement(TweaksPanel, null,
+    React.createElement(TweakSection, {title: 'Brand'},
+      React.createElement(TweakColor, {
+        label: 'Accent Color',
+        value: tweaks.accentColor,
+        onChange: v => setTweak('accentColor', v)
+      })
+    ),
+    React.createElement(TweakSection, {title: 'Background'},
+      React.createElement(TweakRadio, {
+        label: 'Darkness',
+        value: tweaks.bgDarkness,
+        options: ['deep','charcoal','void'],
+        onChange: v => setTweak('bgDarkness', v)
+      })
+    ),
+    React.createElement(TweakSection, {title: 'Colour Grid'},
+      React.createElement(TweakRadio, {
+        label: 'Grid Density',
+        value: tweaks.gridDensity,
+        options: ['compact','comfortable','airy'],
+        onChange: v => setTweak('gridDensity', v)
+      })
+    ),
+    React.createElement(TweakSection, {title: 'Display'},
+      React.createElement(TweakToggle, {
+        label: 'Show LRV in cards',
+        value: tweaks.showLRV,
+        onChange: v => {
+          setTweak('showLRV', v);
+          document.querySelectorAll('.colour-meta span:last-child').forEach(el => {
+            if (el.textContent.includes('LRV')) el.style.display = v ? '' : 'none';
+          });
+        }
+      })
+    )
+  );
+}
+
+const tweaksRoot = document.createElement('div');
+document.body.appendChild(tweaksRoot);
+ReactDOM.createRoot(tweaksRoot).render(React.createElement(PolybondTweaks));
+</script>
+
+</body>
+</html>
