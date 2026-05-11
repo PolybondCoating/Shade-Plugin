@@ -1,815 +1,832 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   POLYBOND COATING PVT. LTD.
-   styles.css — All visual styles for the website
-   
-   HOW TO USE THIS FILE:
-   - Find what you want to change using Ctrl+F (Windows) or Cmd+F (Mac)
-   - Each line has a comment on the right explaining what it controls
-   - Change the value, save the file, refresh your browser to see the change
-   
-   COLOUR REFERENCE (change these values to restyle the entire site):
-   #F7941D  ← Polybond orange (Pantone 137C) — buttons, accents, logo
-   #3B3B3B  ← Dark charcoal — body text, nav text
-   #FFFFFF  ← White — main page background
-   #F5F5F5  ← Light grey — card and section backgrounds
-   #EFEFEF  ← Border / divider colour
-═══════════════════════════════════════════════════════════════════════════ */
+/* ==============================================
+   POLYBOND — STYLESHEET
+   File: styles.css
 
-/* ── FONTS ───────────────────────────────────────────────────────────────
-   Upload both .woff files to the same GitHub folder as index.html      */
-
-@font-face {
-  font-family: 'Bank Gothic';
-  src: url('BankGothicBT-Medium.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Glacial Indifference';
-  src: url('GlacialIndifference-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+   SECTIONS:
+   1.  RESET & ROOT VARIABLES (colours, fonts, spacing)
+   2.  BASE BODY
+   3.  NAVIGATION
+   4.  PAGE SYSTEM
+   5.  HOME — HERO
+   6.  HOME — FEATURE STRIP
+   7.  COLOUR LIBRARY — PAGE HEADER
+   8.  COLOUR LIBRARY — FILTER BAR
+   9.  COLOUR LIBRARY — COLOUR GRID CARDS
+   10. COLOUR DETAIL PAGE
+   11. COLOUR DETAIL — 3D VISUALISER PANEL
+   12. COLOUR DETAIL — SPEC SECTIONS
+   13. VISUALISER PAGE (full-page)
+   14. PRODUCTS PAGE (no extra CSS — inline styles used)
+   15. FOR ARCHITECTS PAGE
+   16. SAMPLE REQUEST MODAL
+   17. RESPONSIVE (mobile breakpoint)
+   18. ANIMATIONS
+=============================================== */
 
 
-
-/* ── RESET ────────────────────────────────────────────────────────────────
-   Removes default browser spacing so everything starts from zero.     */
-*, *::before, *::after {
-  box-sizing: border-box;  /* Makes width/height calculations predictable */
-  margin: 0;               /* Removes all default margins */
-  padding: 0;              /* Removes all default padding */
-}
-
+/* ==============================================
+   1. RESET & ROOT VARIABLES
+   --bg        : darkest background (page base)
+   --bg2       : slightly lighter background (panels)
+   --bg3       : modal background
+   --surface   : card/input surface colour
+   --surface2  : slightly lighter surface
+   --border    : subtle divider lines
+   --border2   : slightly stronger borders
+   --fg        : primary text colour
+   --fg2       : secondary text (60% opacity)
+   --fg3       : tertiary text / labels (30% opacity)
+   --accent    : primary brand colour (orange/gold)
+   --accent2   : secondary accent (teal)
+   --mono      : monospace font (specs, codes)
+   --sans      : body font
+   --display   : display font (headings)
+   --radius    : border radius for cards/buttons
+   --transition: default animation timing
+=============================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #111111;         /* ← Main background — was deep navy */
-  --bg2: #1A1A1A;        /* ← Secondary background */
-  --bg3: #222222;        /* ← Modal background */
-  --surface: #242424;    /* ← Card surface */
-  --surface2: #2E2E2E;   /* ← Elevated surface */
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.13);
-  --fg: #F5F5F5;         /* ← Primary text */
-  --fg2: rgba(245,245,245,0.55);
-  --fg3: rgba(245,245,245,0.28);
-  --accent: #F7941D;     /* ← Pantone 137C — ALL orange highlights */
-  --accent2: #F7941D;    /* ← Was teal, now same orange */
-  --mono: 'Glacial Indifference', sans-serif;   /* ← Replaces DM Mono */
-  --sans: 'Glacial Indifference', sans-serif;   /* ← Replaces DM Sans */
-  --display: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif; /* ← Replaces Bebas Neue */
-  --radius: 2px;
-  --transition: 220ms cubic-bezier(0.4,0,0.2,1);
+  --bg:         #0F0F1A;              /* change: main page background colour */
+  --bg2:        #14141F;              /* change: panel/section backgrounds */
+  --bg3:        #1C1C2E;              /* change: modal background */
+  --surface:    #1E1E30;              /* change: card/input backgrounds */
+  --surface2:   #252538;              /* change: hover states */
+  --border:     rgba(242,240,235,0.08); /* change: subtle borders */
+  --border2:    rgba(242,240,235,0.14); /* change: stronger borders */
+  --fg:         #F2F0EB;              /* change: main text colour */
+  --fg2:        rgba(242,240,235,0.55); /* change: secondary text colour */
+  --fg3:        rgba(242,240,235,0.28); /* change: label/hint text colour */
+  --accent:     oklch(0.72 0.14 62);  /* change: brand accent colour (orange-gold) */
+  --accent2:    oklch(0.65 0.12 200); /* change: secondary accent (teal) */
+  --mono:       'DM Mono', monospace; /* change: monospace font family */
+  --sans:       'DM Sans', sans-serif;/* change: body font family */
+  --display:    'Bebas Neue', sans-serif; /* change: display/heading font */
+  --radius:     3px;                  /* change: global border radius */
+  --transition: 220ms cubic-bezier(0.4,0,0.2,1); /* change: animation speed/easing */
 }
 
-/* ── BASE BODY ────────────────────────────────────────────────────────────  */
-html {
-  scroll-behavior: smooth;  /* ← Makes page scroll smoothly when clicking nav links */
-}
+
+/* ==============================================
+   2. BASE BODY
+=============================================== */
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Glacial Indifference', sans-serif;  /* ← Body typeface for all regular text */
-  font-size: 15px;                    /* ← Base font size. Increase to make all text bigger */
-  line-height: 1.7;                   /* ← Space between lines of text. Higher = more spacious */
-  color: var(--charcoal);            /* ← Default text colour across the whole page */
-  background-color: var(--white);    /* ← Page background colour */
-  -webkit-font-smoothing: antialiased; /* ← Makes fonts look sharper on Mac/iOS */
+  background: var(--bg);   /* page background */
+  color: var(--fg);         /* default text colour */
+  font-family: var(--sans); /* default font */
+  font-size: 15px;          /* change: base font size */
+  line-height: 1.6;         /* change: base line height */
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 
-/* ── BANK GOTHIC (Headers only) ───────────────────────────────────────────
-   Bank Gothic is applied to any element with class="bank" in the HTML.
-   If Bank Gothic is not installed, Arial Narrow is the fallback.      */
-.bank {
-  font-family: 'Bank Gothic', 'BankGothic Md BT', 'Arial Narrow', Arial, sans-serif; /* ← Font stack: tries each in order */
-  font-weight: 700;          /* ← Bold weight */
-  letter-spacing: 0.08em;   /* ← Wide letter spacing — increase for more spread */
-  text-transform: uppercase; /* ← Forces ALL CAPS. Remove this line to allow mixed case */
+/* ==============================================
+   3. NAVIGATION
+   nav         : the fixed top bar container
+   .nav-logo   : "POLY·BOND" brand text
+   .nav-logo span: the accent-coloured dot
+   .nav-links  : container for nav buttons
+   .nav-link   : individual page nav button
+   .nav-link.active: currently active page button
+   .nav-cta    : "Request Sample" button top-right
+=============================================== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;                        /* change: nav height */
+  display: flex; align-items: center;
+  padding: 0 32px;                     /* change: nav left/right padding */
+  background: rgba(15,15,26,0.88);     /* change: nav background (with transparency) */
+  backdrop-filter: blur(12px);         /* frosted glass blur intensity */
+  border-bottom: 1px solid var(--border); /* nav bottom border */
 }
-
-
-/* ══════════════════════════════════════════════════════════════════════════
-   NAVIGATION BAR
-══════════════════════════════════════════════════════════════════════════ */
-
-.nav {
-  position: fixed;              /* ← Sticks the nav to top of screen when scrolling */
-  top: 0;                       /* ← Positions it at the very top */
-  left: 0;
-  right: 0;
-  height: 64px;                 /* ← Height of the nav bar. Increase to make taller */
-  background: rgba(255,255,255,0.96); /* ← Nav background. 0.96 = slightly transparent white */
-  backdrop-filter: blur(10px);  /* ← Frosted glass blur effect behind the nav */
-  border-bottom: 1px solid var(--grey-border); /* ← Thin line at bottom of nav */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;              /* ← Left/right padding inside nav. Increase to add more space */
-  z-index: 1000;                /* ← Keeps nav on top of everything else */
-}
-
-/* Logo area (left side of nav) */
 .nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;                    /* ← Space between monogram icon and wordmark text */
-  text-decoration: none;
-}
-
-.nav-monogram {                 /* ← The orange flame/lens icon */
-  width: 64px;                  /* ← Icon width. Change both width and height equally */
-  height: 64px;                 /* ← Icon height */
-}
-
-
-/* Navigation links (middle of nav) */
-.nav-links {
-  display: flex;
-  gap: 32px;                    /* ← Space between nav menu items */
-  align-items: center;
-font-family: 'Bank Gothic';
-}
-
-.nav-links a {
-  font-size: 11px;              /* ← Size of nav menu items */
-  font-weight: 500;
-  letter-spacing: 0.1em;       /* ← Spacing between letters in nav items */
-  text-transform: uppercase;    /* ← Forces nav items to uppercase */
-  color: var(--grey-text);      /* ← Default nav link colour (inactive state) */
-  text-decoration: none;
-  transition: color 0.2s;       /* ← Smooth colour change on hover (0.2s speed) */
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--orange);         /* ← Colour of nav item when hovered or current page */
-}
-
-/* "Request Sample" button in nav (right side) */
-.nav-cta {
-  background: var(--orange);   /* ← Button background colour */
-  color: #fff;                  /* ← Button text colour */
-  border: none;
-  padding: 10px 20px;          /* ← Button padding. First number = top/bottom, second = left/right */
-  font-size: 11px;
-  font-weight: 700;
+  font-family: var(--display);
+  font-size: 22px;                     /* change: logo text size */
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: var(--fg);
+  margin-right: 40px;                  /* change: gap between logo and nav links */
   cursor: pointer;
-  font-family: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif;
-  transition: opacity 0.2s;
+  user-select: none;
 }
+.nav-logo span { color: var(--accent); } /* the · dot colour */
 
-.nav-cta:hover {
-   colour: #000000;               /* ← Button fades slightly when hovered */
+.nav-links { display: flex; gap: 0; flex: 1; align-items: center; }
+
+.nav-link {
+  padding: 6px 16px;                   /* change: nav button padding */
+  font-size: 13px;                     /* change: nav text size */
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--fg2);                   /* default nav link colour */
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: color var(--transition), background var(--transition);
+  border: none; background: none; font-family: var(--sans);
 }
+.nav-link:hover,
+.nav-link.active { color: var(--fg); }
+.nav-link.active { color: var(--accent); } /* active page = accent colour */
 
-
-/* ══════════════════════════════════════════════════════════════════════════
-   COLOUR ACCENT BAR
-   The thin multi-colour strip at the very top of each page,
-   made from all the swatch colours in the database.
-══════════════════════════════════════════════════════════════════════════ */
-
-.colour-accent-bar {
-  height: 5px;                  /* ← Thickness of the colour strip. Increase to make thicker */
-  display: flex;
-  position: fixed;              /* ← Sticks to top of screen */
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1001;                /* ← Sits above the nav bar */
+.nav-cta {
+  margin-left: auto;
+  padding: 8px 20px;                   /* change: CTA button padding */
+  background: var(--accent);           /* change: CTA button colour */
+  color: #0F0F1A;                      /* change: CTA button text colour */
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: none; border-radius: var(--radius);
+  cursor: pointer; font-family: var(--sans);
+  transition: opacity var(--transition);
 }
-
-.colour-accent-bar div {
-  flex: 1;                      /* ← Each colour gets an equal share of the bar width */
-}
+.nav-cta:hover { opacity: 0.88; }
 
 
-/* ══════════════════════════════════════════════════════════════════════════
-   HERO SECTION (top of Homepage)
-══════════════════════════════════════════════════════════════════════════ */
+/* ==============================================
+   4. PAGE SYSTEM
+   .page       : every page div — hidden by default
+   .page.active: the currently visible page
+=============================================== */
+.page { display: none; padding-top: 56px; min-height: 100vh; }
+.page.active { display: block; }
 
+
+/* ==============================================
+   5. HOME — HERO
+   .hero            : two-column full-height section
+   .hero-left       : left column (text + buttons)
+   .hero-tag        : small label above headline
+   .hero-h1         : main headline
+   .hero-h1 em      : accent-coloured word in headline
+   .hero-sub        : paragraph below headline
+   .hero-actions    : row of CTA buttons
+   .btn-primary     : filled accent CTA button
+   .btn-ghost       : outline CTA button
+   .hero-proof      : stats row (300+, 19 years, etc.)
+   .proof-num       : the large stat number
+   .proof-label     : the small label below stat number
+   .hero-right      : right column (colour mosaic grid)
+   .colour-mosaic   : 6×8 colour tile grid
+   .mosaic-cell     : individual colour tile
+   .hero-overlay    : gradient fade on left of mosaic
+   .scroll-hint     : "Explore colours" hint at bottom
+   .scroll-line     : animated line in scroll hint
+=============================================== */
 .hero {
-  padding: 140px 60px 80px;    /* ← Top, horizontal, bottom padding. Top accounts for the nav bar */
-  max-width: 1280px;            /* ← Maximum width of the hero content */
-  margin: 0 auto;               /* ← Centers the hero on wide screens */
-}
-
-.hero-tag {                     /* ← Small orange label above the main headline */
-  font-size: 11px;
-  letter-spacing: 0.2em;        /* ← Very wide spacing for the small label text */
-  text-transform: uppercase;
-  color: var(--orange);         /* ← Label text colour */
-  margin-bottom: 16px;
-  font-weight: 500;
-}
-
-.hero-headline {                /* ← Main headline: "Colour your imagination" */
-  font-size: clamp(40px, 6vw, 72px); /* ← Responsive size: min 40px, scales with screen, max 72px */
-  line-height: 1.0;             /* ← Very tight line height for large display text */
-  color: var(--charcoal);
-  margin-bottom: 24px;
-}
-
-.hero-headline span {           /* ← The "imagination" word in the headline — highlighted */
-  color: var(--orange);         /* ← Change to recolour just this word */
-}
-
-.hero-body {                    /* ← Descriptive paragraph below the headline */
-  font-size: 16px;
-  color: var(--grey-text);
-  max-width: 520px;             /* ← Maximum width of the paragraph. Keep narrow for readability */
-  line-height: 1.8;
-  margin-bottom: 36px;
-}
-
-/* Buttons below the hero paragraph */
-.hero-buttons {
-  display: flex;
-  gap: 12px;                    /* ← Space between the two hero buttons */
-  margin-bottom: 48px;
-}
-
-.btn-primary {                  /* ← "Browse Colours" orange filled button */
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 14px 28px;          /* ← Button size. First = top/bottom, second = left/right */
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif;
-  transition: opacity 0.2s;
-}
-
-.btn-primary:hover {
-  opacity: 0.85;
-}
-
-.btn-secondary {                /* ← "Download Swatches" outline button */
-  background: transparent;
-  color: var(--charcoal);
-  border: 1.5px solid var(--charcoal); /* ← Border thickness and colour */
-  padding: 14px 28px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  font-family: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif;
-  transition: all 0.2s;
-}
-
-.btn-secondary:hover {
-  background: var(--charcoal); /* ← On hover, fills with charcoal */
-  color: #fff;
-}
-
-/* Stat numbers below the buttons */
-.hero-stats {
-  display: flex;
-  gap: 40px;                    /* ← Space between each stat */
-  flex-wrap: wrap;
-}
-
-.stat {
-  border-left: 2px solid var(--orange); /* ← Orange vertical line on left of each stat */
-  padding-left: 16px;
-}
-
-.stat-number {
-  font-size: 32px;
-  font-weight: 300;             /* ← Light weight for contrast with the label */
-  color: var(--charcoal);
-  line-height: 1;
-}
-
-.stat-number em {               /* ← The "+" or unit after the number */
-  color: var(--orange);
-  font-style: normal;
-}
-
-.stat-label {
-  font-size: 10px;
-  color: var(--grey-text);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-top: 4px;
-}
-
-
-/* ══════════════════════════════════════════════════════════════════════════
-   SECTION LAYOUT (reused across all pages)
-══════════════════════════════════════════════════════════════════════════ */
-
-.section {
-  padding: 80px 60px;          /* ← Top/bottom and side padding for each section */
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.section-alt {                  /* ← Alternate section with grey background */
-  background: var(--grey-light);
-  padding: 80px 0;
-}
-
-.section-alt .section-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 60px;
-}
-
-.section-header {
-  margin-bottom: 48px;
-}
-
-.section-tag {                  /* ← Small orange label above section titles */
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 10px;
-  font-weight: 500;
-}
-
-.section-title {                /* ← Main section heading */
-  font-size: clamp(24px, 3vw, 40px);
-  font-weight: 300;
-  color: var(--charcoal);
-}
-
-.section-subtitle {             /* ← Small descriptive line below section title */
-  font-size: 14px;
-  color: var(--grey-text);
-  margin-top: 8px;
-  max-width: 480px;
-  line-height: 1.6;
-}
-
-
-/* ══════════════════════════════════════════════════════════════════════════
-   COLOUR CARD GRID (Colour Library page)
-══════════════════════════════════════════════════════════════════════════ */
-
-.colour-grid {
+  min-height: calc(100vh - 56px);      /* full viewport minus nav */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* ← Auto-fills columns, min 160px wide each */
-  gap: 12px;                    /* ← Space between each colour card */
-}
-
-.colour-card {
-  border: 0.5px solid var(--grey-border); /* ← Card border colour and thickness */
-  background: var(--white);
-  cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
-  overflow: hidden;
-}
-
-.colour-card:hover {
-  transform: translateY(-3px);  /* ← Card lifts up 3px on hover */
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* ← Subtle shadow on hover */
-}
-
-.colour-card-swatch {
-  height: 100px;                /* ← Height of the colour block at top of each card. Increase to make taller */
-  width: 100%;
-}
-
-.colour-card-body {
-  padding: 12px;                /* ← Padding inside the card info area */
-}
-
-.colour-card-code {             /* ← Product code e.g. "59406" */
-  font-family: monospace;
-  font-size: 10px;
-  color: var(--grey-text);
-  margin-bottom: 3px;
-}
-
-.colour-card-name {             /* ← Colour name e.g. "PP RAL 9001 Satin" */
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--charcoal);
-  margin-bottom: 6px;
-}
-
-.colour-card-tags {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-
-.tag {                          /* ← Small label chips e.g. "Satin", "RAL 9001" */
-  font-size: 9px;
-  padding: 2px 7px;
-  background: var(--grey-light);
-  color: var(--grey-text);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-
-/* ══════════════════════════════════════════════════════════════════════════
-   FILTER BAR (above the colour grid)
-══════════════════════════════════════════════════════════════════════════ */
-
-.filter-bar {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.filter-chip {                  /* ← Each filter button e.g. "Satin", "Gloss" */
-  font-size: 11px;
-  padding: 7px 16px;
-  border: 0.5px solid var(--grey-border);
-  background: var(--white);
-  color: var(--grey-text);
-  cursor: pointer;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-family: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif;
-  transition: all 0.15s;
-}
-
-.filter-chip:hover {
-  border-color: var(--charcoal);
-  color: var(--charcoal);
-}
-
-.filter-chip.active {           /* ← The currently selected filter */
-  background: var(--orange);   /* ← Active filter background */
-  border-color: var(--orange);
-  color: #fff;                  /* ← Active filter text colour */
-}
-
-.filter-search {                /* ← Search input field */
-  margin-left: auto;            /* ← Pushes search to the right */
-  padding: 7px 14px;
-  border: 0.5px solid var(--grey-border);
-  font-size: 12px;
-  font-family: 'Roboto', sans-serif;
-  color: var(--charcoal);
-  outline: none;
-  width: 200px;                 /* ← Width of the search box */
-}
-
-.filter-search:focus {
-  border-color: var(--orange); /* ← Border turns orange when typing */
-}
-
-
-/* ══════════════════════════════════════════════════════════════════════════
-   PLUGIN / DOWNLOAD CARDS (Design Tools page)
-══════════════════════════════════════════════════════════════════════════ */
-
-.plugin-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* ← 3 columns on desktop, 1 on mobile */
-  gap: 2px;                     /* ← Gap between plugin cards — keep small for clean grid look */
-  background: var(--grey-border); /* ← Gap colour between cards */
-}
-
-.plugin-card {
-  background: var(--white);
-  padding: 36px;                /* ← Padding inside each plugin card. Increase for more spacious feel */
+  grid-template-columns: 1fr 1fr;      /* change: column ratio e.g. 55% 45% */
   position: relative;
   overflow: hidden;
 }
-
-.plugin-card::before {          /* ← Orange top border that animates in on hover */
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;                  /* ← Thickness of orange top border on hover */
-  background: var(--orange);
-  transform: scaleX(0);         /* ← Hidden by default */
-  transform-origin: left;
-  transition: transform 0.3s;
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 64px;                  /* change: hero content padding */
+  position: relative; z-index: 2;
 }
-
-.plugin-card:hover::before {
-  transform: scaleX(1);         /* ← Slides in from left when hovering the card */
-}
-
-.plugin-card-label {            /* ← Small orange category label e.g. "Colour Library" */
-  font-size: 10px;
-  letter-spacing: 0.18em;
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em;
+  color: var(--accent); margin-bottom: 28px; /* change: gap below tag */
   text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 12px;
-  font-weight: 500;
 }
-
-.plugin-card-title {            /* ← Card main heading e.g. "Adobe Suite" */
-  font-size: 20px;
-  font-weight: 300;
-  color: var(--charcoal);
-  margin-bottom: 8px;
+.hero-tag::before {
+  content: ''; width: 24px; height: 1px; background: var(--accent); /* accent line before tag */
 }
-
-.plugin-card-desc {             /* ← Description text inside plugin card */
-  font-size: 13px;
-  color: var(--grey-text);
-  line-height: 1.7;
-  margin-bottom: 24px;
+.hero-h1 {
+  font-family: var(--display);
+  font-size: clamp(60px, 6vw, 96px);  /* change: responsive headline size */
+  line-height: 0.95;                   /* change: headline line height */
+  letter-spacing: 0.02em;
+  color: var(--fg);
+  margin-bottom: 28px;
 }
+.hero-h1 em { font-style: normal; color: var(--accent); }
 
-/* Each individual download row inside a plugin card */
-.download-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border: 0.5px solid var(--grey-border);
-  background: var(--grey-light);
-  margin-bottom: 6px;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-  text-decoration: none;
+.hero-sub {
+  font-size: 17px; font-weight: 300;   /* change: subheadline size/weight */
+  color: var(--fg2); max-width: 420px; /* change: max-width of paragraph */
+  margin-bottom: 48px; line-height: 1.7;
 }
+.hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
 
-.download-row:hover {
-  background: #FFF4E6;          /* ← Very light orange tint on hover */
-  border-color: var(--orange);
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px;                  /* change: primary button padding */
+  background: var(--accent);           /* change: primary button background */
+  color: #0F0F1A; font-weight: 600; font-size: 14px;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  font-family: var(--sans); letter-spacing: 0.03em;
+  transition: opacity var(--transition), transform var(--transition);
 }
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
 
-.download-row-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 13px 24px;                  /* change: ghost button padding */
+  background: transparent;
+  color: var(--fg); font-weight: 500; font-size: 14px;
+  border: 1px solid var(--border2); border-radius: var(--radius); cursor: pointer;
+  font-family: var(--sans); letter-spacing: 0.03em;
+  transition: border-color var(--transition), background var(--transition);
 }
+.btn-ghost:hover { border-color: var(--fg2); background: var(--surface); }
 
-.download-badge {               /* ← File type badge e.g. "ASE", "CSV" */
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  font-family: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif;
-  background: var(--charcoal); /* ← Badge background colour */
-  color: #fff;
-  padding: 4px 8px;
-  min-width: 40px;
-  text-align: center;
+.hero-proof { margin-top: 64px; display: flex; gap: 40px; }
+.proof-item { display: flex; flex-direction: column; gap: 4px; }
+.proof-num {
+  font-family: var(--display); font-size: 36px; /* change: stat number size */
+  letter-spacing: 0.04em; color: var(--fg); line-height: 1;
 }
-
-.download-name {                /* ← File name text e.g. "Adobe Swatch Exchange" */
-  font-size: 13px;
-  color: var(--charcoal);
-  font-weight: 500;
+.proof-label {
+  font-family: var(--mono); font-size: 11px; color: var(--fg3);
+  letter-spacing: 0.08em; text-transform: uppercase;
 }
-
-.download-ext {                 /* ← Compatible apps text below file name */
-  font-size: 11px;
-  color: var(--grey-text);
-  margin-top: 1px;
-}
-
-.download-arrow {               /* ← Arrow on right side of download row */
-  font-size: 18px;
-  color: var(--grey-hint);
-  transition: color 0.15s, transform 0.15s;
-}
-
-.download-row:hover .download-arrow {
-  color: var(--orange);         /* ← Arrow turns orange on hover */
-  transform: translateX(3px);  /* ← Arrow nudges right on hover */
-}
-
-.btn-download-all {             /* ← Orange "Download All" button at bottom of each plugin card */
-  width: 100%;
-  padding: 13px;
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-family: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-top: 8px;
-  transition: opacity 0.2s;
-}
-
-.btn-download-all:hover {
-  opacity: 0.88;
-}
-
-
-/* ══════════════════════════════════════════════════════════════════════════
-   SPEC TABLE (technical data table with all colour values)
-══════════════════════════════════════════════════════════════════════════ */
-
-.spec-table-wrap {
-  overflow-x: auto;             /* ← Adds horizontal scroll on small screens */
-}
-
-.spec-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.spec-table th {                /* ← Table header cells */
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--grey-text);
-  font-weight: 500;
-  text-align: left;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--grey-border);
-  white-space: nowrap;          /* ← Prevents header text wrapping */
-}
-
-.spec-table td {                /* ← Table data cells */
-  font-size: 13px;
-  color: var(--grey-text);
-  padding: 13px 16px;
-  border-bottom: 0.5px solid var(--grey-border);
-  vertical-align: middle;
-}
-
-.spec-table td:first-child {    /* ← First column (product code) gets darker text */
-  color: var(--charcoal);
-  font-family: monospace;
-  font-size: 12px;
-}
-
-.spec-table tr:hover td {
-  background: var(--grey-light); /* ← Whole row highlights on hover */
-}
-
-.hex-swatch {                   /* ← Coloured dot next to the HEX code in the table */
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-
-
-/* ══════════════════════════════════════════════════════════════════════════
-   FOOTER
-══════════════════════════════════════════════════════════════════════════ */
-
-footer {
-  background: var(--charcoal); /* ← Footer background colour */
-  color: #fff;
-  padding: 60px;
-}
-
-.footer-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.footer-top {
+.hero-right { position: relative; overflow: hidden; }
+.colour-mosaic {
+  position: absolute; inset: 0;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr; /* ← 3 column layout: brand info | links | contact */
-  gap: 60px;
-  margin-bottom: 48px;
+  grid-template-columns: repeat(6, 1fr); /* change: mosaic columns */
+  grid-template-rows: repeat(8, 1fr);    /* change: mosaic rows */
 }
+.mosaic-cell { transition: opacity 0.4s ease; cursor: pointer; }
+.mosaic-cell:hover { opacity: 0.7; }
 
-.footer-logo {                  /* ← "POLYBOND" in the footer */
-  font-size: 24px;
-  font-weight: 700;
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--bg) 0%, transparent 40%); /* change: fade distance */
+  pointer-events: none; z-index: 1;
+}
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 64px;
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--mono); font-size: 11px; color: var(--fg3);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.scroll-line {
+  width: 40px; height: 1px; background: var(--fg3); /* change: line width/colour */
+  position: relative; overflow: hidden;
+}
+.scroll-line::after {
+  content: ''; position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%; background: var(--accent);
+  animation: scrollAnim 2s ease-in-out infinite; /* change: animation speed */
+}
+@keyframes scrollAnim { 0% { left: -100%; } 100% { left: 100%; } }
+
+
+/* ==============================================
+   6. HOME — FEATURE STRIP
+   .feature-strip  : 3-column grid of cards
+   .feature-card   : individual card
+   .feature-num    : "01" number label
+   .feature-title  : card heading
+   .feature-desc   : card paragraph
+   .feature-link   : "Browse colours →" link at bottom
+=============================================== */
+.feature-strip {
+  padding: 80px 64px;                  /* change: strip padding */
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* change: number of cards per row */
+  gap: 1px; background: var(--border);
+}
+.feature-card {
+  background: var(--bg);
+  padding: 48px 40px;                  /* change: card padding */
+  display: flex; flex-direction: column; gap: 16px;
+  cursor: pointer; transition: background var(--transition);
+}
+.feature-card:hover { background: var(--surface); }
+.feature-num {
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
   letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
-  font-family: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif;
-  margin-bottom: 6px;
+}
+.feature-title { font-size: 20px; font-weight: 500; color: var(--fg); line-height: 1.3; }
+.feature-desc { font-size: 14px; color: var(--fg2); line-height: 1.7; }
+.feature-link {
+  margin-top: auto;
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px;
+}
+.feature-link::after { content: '→'; } /* the arrow after the link text */
+
+
+/* ==============================================
+   7. COLOUR LIBRARY — PAGE HEADER
+   .page-header   : top section of colour/architects pages
+   .page-eyebrow  : small accent label above title
+   .page-title    : large heading
+   .page-subtitle : paragraph below heading
+=============================================== */
+.page-header {
+  padding: 60px 64px 40px;            /* change: header padding */
+  border-bottom: 1px solid var(--border);
+}
+.page-eyebrow {
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;
+}
+.page-title {
+  font-family: var(--display); font-size: clamp(40px,5vw,72px);
+  line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 16px;
+}
+.page-subtitle { font-size: 16px; color: var(--fg2); max-width: 540px; font-weight: 300; }
+
+
+/* ==============================================
+   8. COLOUR LIBRARY — FILTER BAR
+   .filter-bar    : sticky row below page header
+   .filter-label  : "Finish" / "LRV" text labels
+   .filter-chip   : individual filter button (pill)
+   .filter-chip.active: currently selected filter
+   .filter-sep    : thin vertical divider between groups
+   .filter-search : search input container
+=============================================== */
+.filter-bar {
+  padding: 20px 64px;                  /* change: filter bar padding */
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 56px; z-index: 50;
+  background: rgba(15,15,26,0.95); backdrop-filter: blur(8px);
+}
+.filter-label {
+  font-family: var(--mono); font-size: 11px; color: var(--fg3);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-right: 8px;
+}
+.filter-chip {
+  padding: 6px 14px;                   /* change: filter chip padding */
+  border: 1px solid var(--border2); border-radius: 100px; /* fully rounded pill */
+  font-size: 12px; font-weight: 500; color: var(--fg2);
+  background: transparent; cursor: pointer; font-family: var(--sans);
+  transition: all var(--transition);
+}
+.filter-chip:hover { border-color: var(--fg2); color: var(--fg); }
+.filter-chip.active {
+  background: var(--accent); border-color: var(--accent); /* change: active chip colour */
+  color: #0F0F1A; font-weight: 600;
+}
+.filter-sep { width: 1px; height: 24px; background: var(--border2); margin: 0 4px; }
+.filter-search {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: var(--radius); padding: 6px 14px;
+}
+.filter-search input {
+  background: none; border: none; outline: none;
+  color: var(--fg); font-family: var(--mono); font-size: 12px;
+  width: 160px;                        /* change: search box width */
+}
+.filter-search input::placeholder { color: var(--fg3); }
+
+
+/* ==============================================
+   9. COLOUR LIBRARY — COLOUR GRID CARDS
+   .colour-grid        : the masonry-style grid container
+   .colour-card        : individual colour card
+   .colour-swatch      : coloured square at top of card
+   .swatch-finish-badge: small badge (Satin/Gloss etc)
+   .colour-info        : white/dark info area below swatch
+   .colour-code        : product code (accent coloured)
+   .colour-name        : colour name
+   .colour-meta        : row of small data chips (RAL/LRV/Gloss)
+=============================================== */
+.colour-grid {
+  padding: 40px 64px;                  /* change: grid padding */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* change: card min-width */
+  gap: 2px;                            /* change: gap between cards */
+  background: var(--border);
+}
+.colour-card {
+  background: var(--bg);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex; flex-direction: column;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.colour-card:hover {
+  transform: translateY(-4px);         /* change: hover lift amount */
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  z-index: 2; position: relative;
+}
+.colour-swatch {
+  height: 140px;                       /* change: swatch height in card */
+  width: 100%; flex-shrink: 0; position: relative;
+}
+.swatch-finish-badge {
+  position: absolute; bottom: 8px; right: 8px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 3px 7px;
+  background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+  color: rgba(255,255,255,0.8); border-radius: 2px;
+}
+.colour-info {
+  padding: 14px 16px;                  /* change: card info padding */
+  background: var(--bg2);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.colour-code {
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
+  letter-spacing: 0.06em;
+}
+.colour-name { font-size: 13px; font-weight: 500; color: var(--fg); }
+.colour-meta { display: flex; gap: 12px; margin-top: 4px; }
+.colour-meta span { font-family: var(--mono); font-size: 10px; color: var(--fg3); }
+
+
+/* ==============================================
+   10. COLOUR DETAIL PAGE
+   .colour-detail       : two-column layout
+   .colour-detail-left  : sticky left panel (swatch + specs)
+   .colour-big-swatch   : large coloured area
+   .colour-detail-meta  : below swatch — code, name, specs, buttons
+   .detail-code         : product code text
+   .detail-name         : colour name heading
+   .spec-grid           : 2-column data grid (HEX/LAB/LRV etc)
+   .spec-cell           : individual data cell
+   .spec-label          : small data label (e.g. "HEX")
+   .spec-val            : data value text
+   .detail-actions      : column of action buttons
+   .btn-full            : full-width button
+   .btn-full.accent     : filled button
+   .btn-full.ghost      : outline button
+   .back-btn            : ← Back to Library button
+=============================================== */
+.colour-detail {
+  display: grid;
+  grid-template-columns: 420px 1fr;   /* change: left panel width */
+  min-height: calc(100vh - 56px);
+}
+.colour-detail-left {
+  position: sticky; top: 56px; height: calc(100vh - 56px);
+  display: flex; flex-direction: column;
+  border-right: 1px solid var(--border); overflow: hidden;
+}
+.colour-big-swatch { flex: 1; min-height: 280px; }
+.colour-detail-meta {
+  padding: 28px 32px;                  /* change: meta panel padding */
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 0;
+}
+.detail-code {
+  font-family: var(--mono); font-size: 12px; color: var(--accent);
+  letter-spacing: 0.08em; margin-bottom: 4px;
+}
+.detail-name { font-size: 24px; font-weight: 500; margin-bottom: 20px; }
+.spec-grid {
+  display: grid; grid-template-columns: 1fr 1fr; /* change: spec grid columns */
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; margin-bottom: 20px;
+}
+.spec-cell { background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 3px; }
+.spec-label { font-family: var(--mono); font-size: 9px; color: var(--fg3); letter-spacing: 0.1em; text-transform: uppercase; }
+.spec-val { font-family: var(--mono); font-size: 13px; color: var(--fg); }
+.detail-actions { display: flex; flex-direction: column; gap: 8px; }
+.btn-full {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 13px 20px; border-radius: var(--radius);
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  cursor: pointer; border: none; transition: all var(--transition);
+}
+.btn-full.accent { background: var(--accent); color: #0F0F1A; }
+.btn-full.accent:hover { opacity: 0.88; }
+.btn-full.ghost { background: transparent; color: var(--fg); border: 1px solid var(--border2); }
+.btn-full.ghost:hover { background: var(--surface); }
+.colour-detail-right { padding: 0; }
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 0; font-family: var(--mono); font-size: 11px;
+  color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer; border: none; background: none;
+  transition: color var(--transition);
+  margin: 24px 64px 0;
+}
+.back-btn:hover { color: var(--fg); }
+.back-btn::before { content: '←'; } /* arrow character before "Back to Library" */
+
+
+/* ==============================================
+   11. COLOUR DETAIL — 3D VISUALISER PANEL
+   .visualiser-panel    : contains profile SVG
+   .panel-header        : header with title and lighting tabs
+   .panel-title         : "3D Visualiser" label
+   .lighting-tabs       : tab group container
+   .light-tab           : individual lighting mode tab
+   .light-tab.active    : selected tab
+   .visualiser-canvas   : SVG render area
+   .profile-container   : SVG injected here
+=============================================== */
+.visualiser-panel {
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  height: 420px;                       /* change: visualiser panel height */
+  display: flex; flex-direction: column;
+}
+.panel-header {
+  padding: 20px 32px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.panel-title { font-family: var(--mono); font-size: 11px; color: var(--fg2); letter-spacing: 0.1em; text-transform: uppercase; }
+.lighting-tabs { display: flex; gap: 2px; background: var(--surface); border-radius: var(--radius); padding: 3px; }
+.light-tab {
+  padding: 5px 12px; border-radius: 2px;
+  font-size: 10px; letter-spacing: 0.06em; color: var(--fg3);
+  cursor: pointer; border: none; background: none;
+  font-family: var(--sans); transition: all var(--transition);
+}
+.light-tab.active { background: var(--surface2); color: var(--fg); }
+.visualiser-canvas {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.profile-container {
+  position: relative; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
 }
 
-.footer-logo span {             /* ← "BOND" part of footer logo */
-  color: var(--orange);
+
+/* ==============================================
+   12. COLOUR DETAIL — SPEC SECTIONS
+   .detail-section   : padded section below visualiser
+   .section-title    : small uppercase label
+   .lrv-bar-wrap     : LRV track container
+   .lrv-track        : the black-to-white gradient bar
+   .lrv-marker       : accent dot positioned by JS
+   .lrv-labels       : "0 Absolute black" and "100 Pure white"
+   .similar-colours  : row of small colour swatches
+   .similar-swatch   : individual small swatch
+=============================================== */
+.detail-section { padding: 32px; border-bottom: 1px solid var(--border); }
+.section-title {
+  font-family: var(--mono); font-size: 11px; color: var(--fg3);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;
+}
+.lrv-track {
+  height: 8px; border-radius: 4px;
+  background: linear-gradient(90deg, #000 0%, #fff 100%); /* the LRV gradient bar */
+  position: relative; margin: 8px 0;
+}
+.lrv-marker {
+  position: absolute; top: -4px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--accent);           /* change: LRV marker colour */
+  border: 2px solid var(--bg);
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.lrv-labels { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--fg3); }
+.similar-colours { display: flex; gap: 8px; flex-wrap: wrap; }
+.similar-swatch {
+  width: 48px; height: 48px;          /* change: similar colour swatch size */
+  border-radius: var(--radius); cursor: pointer;
+  transition: transform var(--transition); border: 1px solid var(--border);
+}
+.similar-swatch:hover { transform: scale(1.1); }
+
+
+/* ==============================================
+   13. VISUALISER PAGE (full-page)
+   .visualiser-page    : full page two-column layout
+   .vis-sidebar        : left panel (controls + palette)
+   .vis-sidebar-header : top of sidebar
+   .vis-sidebar-title  : "Visualiser" heading
+   .vis-section        : each section in sidebar
+   .vis-section-label  : small section heading
+   .model-selector     : 2×2 grid of model buttons
+   .model-btn          : individual model button
+   .model-btn.active   : selected model
+   .model-icon         : emoji icon in model button
+   .light-selector     : row of lighting buttons
+   .light-btn          : individual lighting button
+   .light-btn.active   : selected lighting
+   .light-dot          : coloured dot in lighting button
+   .vis-colour-scroll  : scrollable grid of colour swatches
+   .vis-swatch-btn     : individual colour swatch
+   .vis-swatch-btn.active: selected swatch (white border)
+   .vis-cta            : bottom of sidebar (label + buttons)
+   .vis-canvas         : right side SVG area
+   .vis-bg-grid        : dot grid background
+   .vis-model-area     : where SVG is injected
+   .vis-info-overlay   : bottom-left info panel
+   .vis-share-bar      : top-right share/download buttons
+   .vis-btn            : share/download button style
+=============================================== */
+.visualiser-page {
+  height: calc(100vh - 56px);         /* full height minus nav */
+  display: grid;
+  grid-template-columns: 320px 1fr;   /* change: sidebar width */
+}
+.vis-sidebar { border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+.vis-sidebar-header { padding: 24px 24px 20px; border-bottom: 1px solid var(--border); }
+.vis-sidebar-title { font-family: var(--display); font-size: 28px; letter-spacing: 0.04em; }
+.vis-sidebar-sub { font-size: 12px; color: var(--fg2); margin-top: 4px; }
+.vis-section { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+.vis-section-label { font-family: var(--mono); font-size: 10px; color: var(--fg3); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+.model-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.model-btn {
+  padding: 12px 10px; border: 1px solid var(--border2); border-radius: var(--radius);
+  cursor: pointer; background: none; color: var(--fg2); font-family: var(--sans);
+  font-size: 12px; text-align: center; transition: all var(--transition);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.model-btn:hover { border-color: var(--fg2); color: var(--fg); }
+.model-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(235,180,90,0.06); }
+.model-icon { font-size: 22px; }
+.light-selector { display: flex; gap: 8px; }
+.light-btn {
+  flex: 1; padding: 9px 8px; border: 1px solid var(--border2); border-radius: var(--radius);
+  background: none; cursor: pointer; font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.06em; color: var(--fg3); transition: all var(--transition);
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+}
+.light-btn:hover { border-color: var(--fg2); color: var(--fg); }
+.light-btn.active { border-color: var(--accent2); color: var(--accent2); } /* uses secondary accent */
+.light-dot { width: 10px; height: 10px; border-radius: 50%; }
+.vis-colour-scroll {
+  flex: 1; overflow-y: auto; padding: 16px;
+  display: grid; grid-template-columns: repeat(4, 1fr); /* change: swatch columns */
+  gap: 6px; align-content: start;
+}
+.vis-colour-scroll::-webkit-scrollbar { width: 4px; }
+.vis-colour-scroll::-webkit-scrollbar-track { background: transparent; }
+.vis-colour-scroll::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+.vis-swatch-btn { aspect-ratio: 1; border-radius: 2px; cursor: pointer; border: 2px solid transparent; transition: all var(--transition); }
+.vis-swatch-btn:hover { transform: scale(1.08); }
+.vis-swatch-btn.active { border-color: var(--fg); } /* selected swatch gets white border */
+.vis-cta { padding: 20px 24px; border-top: 1px solid var(--border); }
+.vis-canvas { background: var(--bg2); position: relative; overflow: hidden; }
+.vis-bg-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;         /* change: grid cell size */
+  opacity: 0.5;
+}
+.vis-model-area { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.vis-info-overlay {
+  position: absolute; bottom: 24px; left: 24px;
+  background: rgba(15,15,26,0.8); backdrop-filter: blur(8px);
+  border: 1px solid var(--border2); border-radius: var(--radius); padding: 14px 18px;
+  display: flex; gap: 24px;
+}
+.vis-info-item { display: flex; flex-direction: column; gap: 3px; }
+.vis-info-label { font-family: var(--mono); font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; }
+.vis-info-val { font-family: var(--mono); font-size: 13px; color: var(--fg); }
+.vis-share-bar { position: absolute; top: 24px; right: 24px; display: flex; gap: 8px; }
+.vis-btn {
+  padding: 8px 16px; border: 1px solid var(--border2); border-radius: var(--radius);
+  background: rgba(15,15,26,0.8); backdrop-filter: blur(8px);
+  color: var(--fg); font-family: var(--mono); font-size: 11px;
+  cursor: pointer; transition: all var(--transition);
+}
+.vis-btn:hover { border-color: var(--fg2); background: var(--surface); }
+
+
+/* ==============================================
+   15. FOR ARCHITECTS PAGE
+   .arch-hero        : 2-col hero with spec reference
+   .arch-downloads   : 2×2 download card grid
+   .download-card    : individual download card
+   .download-format  : ".adsklib" format badge
+   .download-title   : card heading
+   .download-desc    : card description
+   .download-btn     : "↓ Download" button
+   .lrv-section      : 2-col section (steps + LRV guide)
+   .spec-steps       : bordered steps container
+   .spec-step        : individual step row
+   .step-num         : "01" number
+   .step-title       : step heading
+   .step-desc        : step description
+=============================================== */
+.arch-hero {
+  padding: 80px 64px 60px;
+  border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end;
+}
+.arch-downloads {
+  padding: 60px 64px;
+  display: grid; grid-template-columns: repeat(2, 1fr); /* change: cards per row */
+  gap: 1px; background: var(--border);
+}
+.download-card {
+  background: var(--bg); padding: 40px 36px;
+  display: flex; flex-direction: column; gap: 16px;
+  transition: background var(--transition); cursor: pointer;
+}
+.download-card:hover { background: var(--surface); }
+.download-format {
+  display: inline-flex; align-items: center;
+  font-family: var(--mono); font-size: 10px; color: var(--accent);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 10px; border: 1px solid rgba(235,180,90,0.3);
+  border-radius: 2px; align-self: flex-start;
+}
+.download-title { font-size: 18px; font-weight: 500; color: var(--fg); }
+.download-desc { font-size: 13px; color: var(--fg2); line-height: 1.7; flex: 1; }
+.download-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border: 1px solid var(--border2); border-radius: var(--radius);
+  background: none; color: var(--fg); font-family: var(--sans);
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  transition: all var(--transition); align-self: flex-start; margin-top: 8px;
+}
+.download-btn:hover { border-color: var(--accent); color: var(--accent); }
+.lrv-section {
+  padding: 60px 64px; border-top: 1px solid var(--border);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+}
+.spec-steps { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.spec-step { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; gap: 20px; align-items: flex-start; }
+.spec-step:last-child { border-bottom: none; }
+.step-num { font-family: var(--mono); font-size: 20px; color: var(--accent); line-height: 1; min-width: 28px; }
+.step-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.step-desc { font-size: 13px; color: var(--fg2); line-height: 1.6; }
+
+
+/* ==============================================
+   16. SAMPLE REQUEST MODAL
+   .modal-overlay      : full-screen dark backdrop
+   .modal-overlay.open : visible state
+   .modal              : white/dark modal box
+   .modal-title        : "Request Sample" heading
+   .modal-sub          : subtitle with colour name
+   .form-group         : label + input container
+   .form-label         : small uppercase field label
+   .form-input         : text input field
+   .modal-actions      : submit + cancel buttons row
+   .modal-close        : × close button top-right
+=============================================== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity var(--transition);
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 6px; padding: 40px;   /* change: modal padding */
+  width: 480px; max-width: 90vw;       /* change: modal width */
+  transform: translateY(16px); transition: transform var(--transition);
+  position: relative;
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-title { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+.modal-sub { font-size: 13px; color: var(--fg2); margin-bottom: 28px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: 0.08em; text-transform: uppercase; }
+.form-input {
+  padding: 11px 14px; background: var(--surface); border: 1px solid var(--border2);
+  border-radius: var(--radius); color: var(--fg); font-family: var(--sans); font-size: 14px;
+  outline: none; transition: border-color var(--transition);
+}
+.form-input:focus { border-color: var(--accent); }
+.modal-actions { display: flex; gap: 10px; margin-top: 24px; }
+.modal-close {
+  position: absolute; top: 16px; right: 20px;
+  background: none; border: none; color: var(--fg3); font-size: 20px;
+  cursor: pointer; line-height: 1;
 }
 
-.footer-tagline {               /* ← "Coating Pvt. Ltd." below logo */
-  font-size: 11px;
-  color: #888;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
 
-.footer-address {               /* ← Address block in footer */
-  font-size: 13px;
-  color: #888;
-  line-height: 1.8;
-}
-
-.footer-col h4 {                /* ← Column heading e.g. "Design Tools", "Contact" */
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #888;
-  margin-bottom: 16px;
-  font-weight: 500;
-}
-
-.footer-col a {                 /* ← Footer links */
-  display: block;
-  font-size: 13px;
-  color: #aaa;
-  text-decoration: none;
-  margin-bottom: 10px;
-  transition: color 0.2s;
-}
-
-.footer-col a:hover {
-  color: var(--orange);         /* ← Footer links turn orange on hover */
-}
-
-.footer-bottom {                /* ← Bottom bar with copyright */
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.08); /* ← Faint white divider */
-  font-size: 11px;
-  color: #666;
+/* ==============================================
+   17. RESPONSIVE — MOBILE BREAKPOINT
+   Stacks two-column layouts to single column below 900px
+=============================================== */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }           /* hero stacks vertically */
+  .hero-right { height: 260px; }                   /* mosaic becomes fixed height band */
+  .hero-left { padding: 48px 32px; }               /* reduce hero padding */
+  .colour-detail { grid-template-columns: 1fr; }   /* detail page stacks */
+  .visualiser-page { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .feature-strip { grid-template-columns: 1fr; }   /* one card per row */
+  .arch-hero, .lrv-section { grid-template-columns: 1fr; gap: 40px; }
+  .arch-downloads { grid-template-columns: 1fr; }
+  .filter-bar, .page-header, .colour-grid,
+  .arch-hero, .arch-downloads, .lrv-section { padding-left: 24px; padding-right: 24px; }
+  .back-btn { margin-left: 24px; }
 }
 
 
-/* ══════════════════════════════════════════════════════════════════════════
-   TOAST NOTIFICATION (download confirmation popup)
-══════════════════════════════════════════════════════════════════════════ */
-
-.toast {
-  position: fixed;
-  bottom: 28px;                 /* ← Distance from bottom of screen */
-  right: 28px;                  /* ← Distance from right of screen */
-  background: var(--orange);   /* ← Toast background colour */
-  color: #fff;
-  padding: 12px 20px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-family: 'Bank Gothic', 'Arial Narrow', Arial, sans-serif;
-  opacity: 0;
-  transform: translateY(16px); /* ← Starts slightly below then slides up */
-  transition: opacity 0.3s, transform 0.3s;
-  pointer-events: none;
-  z-index: 9999;
+/* ==============================================
+   18. ANIMATIONS
+   .fade-up   : fades element up on load
+   .fade-up-1 through .fade-up-4: staggered delays
+   Change animation-delay values to adjust timing
+=============================================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
-.toast.visible {
-  opacity: 1;
-  transform: translateY(0);    /* ← Slides into view */
-}
-
-
-/* ══════════════════════════════════════════════════════════════════════════
-   RESPONSIVE — MOBILE (screens smaller than 768px)
-══════════════════════════════════════════════════════════════════════════ */
-
-@media (max-width: 768px) {
-
-  .nav {
-    padding: 0 20px;           /* ← Less side padding on mobile */
-  }
-
-  .nav-links {
-    display: none;             /* ← Hides the nav links on mobile (hamburger menu would go here) */
-  }
-
-  .hero {
-    padding: 100px 24px 60px; /* ← Less padding on mobile */
-  }
-
-  .hero-buttons {
-    flex-direction: column;   /* ← Stacks buttons vertically on mobile */
-  }
-
-  .section {
-    padding: 60px 24px;       /* ← Less section padding on mobile */
-  }
-
-  .footer-top {
-    grid-template-columns: 1fr; /* ← Single column footer on mobile */
-    gap: 32px;
-  }
-
-  footer {
-    padding: 40px 24px;
-  }
-
-  .plugin-grid {
-    grid-template-columns: 1fr; /* ← Single column plugin cards on mobile */
-  }
-
-  .colour-grid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* ← Smaller cards on mobile */
-  }
-}
+.fade-up   { animation: fadeUp 0.5s ease both; }
+.fade-up-1 { animation-delay: 0.1s; }   /* change: delay for first element */
+.fade-up-2 { animation-delay: 0.22s; }  /* change: delay for second element */
+.fade-up-3 { animation-delay: 0.34s; }  /* change: delay for third element */
+.fade-up-4 { animation-delay: 0.46s; }  /* change: delay for fourth element */
